@@ -1,19 +1,24 @@
-.leftBorder{
-border-left: 3px solid #000
-}
-.rightBorder{
-border-right: 3px solid #000
+.leftBorder {
+    border-left: 3px solid #000
 }
 
-.topBorder{
+.rightBorder {
+    border-right: 3px solid #000
+}
+
+.topBorder {
     border-top: 3px solid #000
 }
 
-.bottomBorder{
+.bottomBorder {
     border-bottom: 3px solid #000
 }
 
-md-grid-tile{
-    margin: 0px;
-    padding: 0px
+md-grid-tile {
+    border: 3px solid #ADD8E6;
+}
+
+md-grid-list {
+    height: 95vh;
+    margin: 0;
 }
