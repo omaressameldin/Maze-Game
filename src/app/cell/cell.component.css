@@ -1,12 +1,14 @@
-md-grid-tile {
+.cell {
     margin: 0;
     border: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     background-color: white!important;
 }
 
-md-grid-tile::after,
-md-grid-tile::before {
+.cell::after,
+.cell::before {
     content: "";
     position: absolute;
     width: 0px;
