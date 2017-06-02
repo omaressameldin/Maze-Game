@@ -42,7 +42,7 @@ md-grid-list {
 }
 
 @keyframes draw {
-    froom {
+    from {
         width: 0%;
         height: 0%;
     }
