@@ -3,11 +3,16 @@ export class Cell {
   up: boolean;
   right: boolean;
   down: boolean;
+  hasCollectable: boolean;
   constructor(){
       this.left = false;
       this.up = false;
       this.right = false;
       this.down = false;
+      if(Math.floor(Math.random() * 5) > 3)
+        this.hasCollectable = true;
+      else
+        this.hasCollectable = false;
   }
   removeWall(direction:number){
     if(direction == 0)
