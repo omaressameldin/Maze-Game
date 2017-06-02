@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {Cell} from "../classes/cell/cell"
 @Component({
   selector: 'app-maze-generator',

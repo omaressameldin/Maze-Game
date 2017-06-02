@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MazeGeneratorComponent } from './maze-generator/maze-generator.component';
+import {MdGridListModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MazeGeneratorComponent } from './maze-generator/maze-generator.componen
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MdGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
