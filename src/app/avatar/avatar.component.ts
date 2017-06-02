@@ -24,16 +24,21 @@ import {
 
 export class AvatarComponent implements OnInit {
 
- @Input() size:Object;
+ size:Object;
   
 constructor(private el: ElementRef, 
   private renderer: Renderer) {
 }
 
 ngOnInit() {
-  console.log(this.size);
 }
 
+ngAfterViewInit(){
+    console.log("EHHH");
+
+    console.log(this.size);
+
+}
 // @HostBinding('style.transform') c_colorrr = "red"; 
 
 @HostListener('document:keyup', ['$event'])

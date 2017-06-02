@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { ViewChild, Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Cell } from "../classes/cell/cell"
 @Component({
   selector: 'app-maze-generator',
@@ -8,6 +8,8 @@ import { Cell } from "../classes/cell/cell"
 export class MazeGeneratorComponent implements OnInit {
 
   @Output() update = new EventEmitter<any>();
+
+  @ViewChild('grid') input;
 
   constructor(private el: ElementRef) { }
   rows: number;
@@ -24,9 +26,19 @@ export class MazeGeneratorComponent implements OnInit {
       }
     }
     this.generateMaze();
-    let part = this.el.nativeElement.querySelector('md-grid-tile');
-    let compuStyle = window.getComputedStyle(part);
+
+  }
+
+  ngAfterViewInit() {
+    let part = this.el.nativeElement.querySelector('mat-grid-list');
+    let part2 = this.input._element.nativeElement;
+    console.log("BLEH");
+    console.log(part);
+    console.log(part2);
+    console.log(this.input._element.nativeElement);
+    let compuStyle = window.getComputedStyle(part2);
     var stylesObj = { width: compuStyle.width, height: compuStyle.height };
+    console.log(stylesObj);
     this.update.emit({ width: compuStyle.width, height: compuStyle.height });
 
   }
