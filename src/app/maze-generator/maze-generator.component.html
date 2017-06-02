@@ -1,0 +1,7 @@
+<div>
+    <div *ngFor="let row of map">
+        <span *ngFor="let cell of row" [ngClass]="{left: cell[0].left, right: cell[0].right, up: cell[0].up, down: cell[0].down}">
+          cell
+        </span>
+    </div>
+</div>

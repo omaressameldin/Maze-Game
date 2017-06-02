@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { MazeGeneratorComponent } from './maze-generator/maze-generator.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MazeGeneratorComponent
   ],
   imports: [
     BrowserModule,
