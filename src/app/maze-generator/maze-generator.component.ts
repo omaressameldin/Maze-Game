@@ -10,7 +10,7 @@ export class MazeGeneratorComponent implements OnInit {
   @Output() update = new EventEmitter<any>();
 
   @ViewChild('grid') input;
-
+  @ViewChild('avatar') avatar;
   constructor(private el: ElementRef) { }
   rows: number;
   columns: number;
@@ -30,7 +30,7 @@ export class MazeGeneratorComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    let part = this.el.nativeElement.querySelector('mat-grid-list');
+    let part = this.el.nativeElement.querySelector("grid");
     let part2 = this.input._element.nativeElement;
     console.log("BLEH");
     console.log(part);
@@ -39,7 +39,8 @@ export class MazeGeneratorComponent implements OnInit {
     let compuStyle = window.getComputedStyle(part2);
     var stylesObj = { width: compuStyle.width, height: compuStyle.height };
     console.log(stylesObj);
-    this.update.emit({ width: compuStyle.width, height: compuStyle.height });
+    this.avatar.size = stylesObj;
+    console.log(this.avatar.size);
 
   }
 
