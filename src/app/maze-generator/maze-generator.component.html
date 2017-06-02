@@ -2,7 +2,7 @@
     <md-grid-list cols="{{columns}}" rowHeight="fit">
         <div *ngFor="let row of map">
             <!--<span >-->
-            <md-grid-tile *ngFor="let cell of row" [ngClass]="{'leftBorder': !cell[0].left, 'rightBorder': !cell[0].right, 'topBorder': !cell[0].up, 'bottomBorder': !cell[0].down}" [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">cell</md-grid-tile>
+            <md-grid-tile *ngFor="let cell of row" [ngClass]="{ 'leftBorder': !cell[0].left, 'rightBorder': !cell[0].right, 'topBorder': !cell[0].up, 'bottomBorder': !cell[0].down}" [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">cell</md-grid-tile>
             <!--</span>-->
         </div>
     </md-grid-list>
