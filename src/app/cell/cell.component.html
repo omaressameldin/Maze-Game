@@ -1,3 +1,1 @@
-<p>
-  cell works!
-</p>
+<md-grid-tile [ngClass]="{ 'leftBorder': !cell.left, 'rightBorder': !cell.right, 'topBorder': !cell.up, 'bottomBorder': !cell.down}" [colspan]="1" [rowspan]="1">cell</md-grid-tile>
