@@ -24,14 +24,14 @@ import {
 
 export class AvatarComponent implements OnInit {
 
-  // var position(
-  // number
-  // )
-constructor(private el: ElementRef,
+ @Input() size:Object;
+  
+constructor(private el: ElementRef, 
   private renderer: Renderer) {
 }
 
 ngOnInit() {
+  console.log(this.size);
 }
 
 // @HostBinding('style.transform') c_colorrr = "red"; 
