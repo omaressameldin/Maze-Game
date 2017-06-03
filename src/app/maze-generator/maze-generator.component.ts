@@ -30,19 +30,24 @@ export class MazeGeneratorComponent implements OnInit {
 
   }
 
+
+ 
   ngAfterViewInit() {
-    let part = this.el.nativeElement.querySelector("grid");
     let part2 = this.input._element.nativeElement;
     console.log("BLEH");
-    console.log(part);
     console.log(part2);
     console.log(this.input._element.nativeElement);
     let compuStyle = window.getComputedStyle(part2);
     console.log(compuStyle);
+     var stylesObj = { width: compuStyle.width, height: compuStyle.height };
+    console.log(stylesObj);
+    this.avatar.size = stylesObj;
+
     let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0]));
     this.dimensions =dim;
     this.cdr.detectChanges();
   }
+
 
   generateMaze() {
     let unvisitedCells = this.rows * this.columns - 1;
