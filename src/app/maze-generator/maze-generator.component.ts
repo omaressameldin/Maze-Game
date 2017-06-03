@@ -1,4 +1,4 @@
-import { ViewChild, Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { ViewChild, Component, OnInit, Output, EventEmitter, ElementRef, ChangeDetectorRef  } from '@angular/core';
 import { Cell } from "../classes/cell/cell"
 @Component({
   selector: 'app-maze-generator',
@@ -11,9 +11,10 @@ export class MazeGeneratorComponent implements OnInit {
 
   @ViewChild('grid') input;
   @ViewChild('avatar') avatar;
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private cdr: ChangeDetectorRef) { }
   rows: number;
   columns: number;
+  dimensions: number;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
@@ -37,10 +38,12 @@ export class MazeGeneratorComponent implements OnInit {
     console.log(part2);
     console.log(this.input._element.nativeElement);
     let compuStyle = window.getComputedStyle(part2);
-    var stylesObj = { width: compuStyle.width, height: compuStyle.height };
-    console.log(stylesObj);
-    this.avatar.size = stylesObj;
-    console.log(this.avatar.size);
+    console.log(compuStyle);
+    let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0]));
+    this.dimensions =dim;
+    this.cdr.detectChanges();
+    console.log("omar essam eldin")
+    console.log(dim);
 
   }
 

@@ -1,3 +1,8 @@
-.playerAvatar{
-    transform: translate(0px,0px);
+.playerAvatar {
+    transform: translate(0px, 0px);
+    transition: transform 1s ease-in;
+}
+
+:host {
+    background-color: red;
 }

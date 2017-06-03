@@ -11,6 +11,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { Cell } from "../classes/cell/cell"
 
 @Component({
   selector: 'app-avatar',
@@ -26,6 +27,7 @@ export class AvatarComponent implements OnInit {
 
   size:any;  
   part:any;
+  @Input() map: Array<Array<[Cell, boolean]>>;
 constructor(private el: ElementRef, 
   private renderer: Renderer) {
 }
