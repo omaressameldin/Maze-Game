@@ -47,7 +47,7 @@ export class MazeGeneratorComponent implements OnInit {
     console.log(stylesObj);
     this.avatar.size = stylesObj;
     this.gridLocation =  {left: this.gridItem._element.nativeElement.getBoundingClientRect().left, top: this.gridItem._element.nativeElement.getBoundingClientRect().top };
-    let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0]));
+    let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0])) /2;
     this.dimensions =dim;
     this.cdr.detectChanges();
   }

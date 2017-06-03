@@ -24,12 +24,11 @@ import { Cell } from "../classes/cell/cell"
 })
 
 export class AvatarComponent implements OnInit {
-
-  size:any;  
+  size:{width:string, height:string};  
   part:any;
   @Input() map: Array<Array<[Cell, boolean]>>;
-  @Input() gridLocation:object;
-  @Input() startPosition: object;
+  @Input() gridLocation:{top:number, left:number};
+  @Input() startPosition: {x:number, y:number};
 
 constructor(private el: ElementRef, 
   private renderer: Renderer) {
@@ -37,14 +36,24 @@ constructor(private el: ElementRef,
 
 ngOnInit() {
       this.part = this.el.nativeElement;
+     
       // this.renderer.setElementyStyle(this.part, 'scale')
 
 }
 
 ngAfterViewChecked(){
     console.log("EHHH");
+    if(typeof this.size === "undefined")
+      return;
     console.log(this.size);
     console.log(this.gridLocation)
+    console.log(this.startPosition)
+    let width = +this.size.width.split('px')[0]
+    let height = +this.size.height.split('px')[0]
+    let dimension = this.part.getBoundingClientRect().width
+     this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left+width/2-dimension/2 + this.startPosition.x*width)+"px")
+     this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top+height/2-dimension/2 + this.startPosition.y*height)+"px")
+    console.log(this.startPosition.x*(this.gridLocation.left+width/2-dimension/2)+"px")
 }
 // @HostBinding('style.transform') c_colorrr = "red"; 
 
