@@ -24,52 +24,59 @@ import {
 
 export class AvatarComponent implements OnInit {
 
-  // var position(
-  // number
-  // )
-constructor(private el: ElementRef,
+  size:any;  
+  part:any;
+constructor(private el: ElementRef, 
   private renderer: Renderer) {
 }
 
 ngOnInit() {
+      this.part = this.el.nativeElement.querySelector('.playerAvatar');
+      // this.renderer.setElementyStyle(this.part, 'scale')
+
 }
 
+ngAfterViewChecked(){
+    console.log("EHHH");
+    console.log(this.size);
+}
 // @HostBinding('style.transform') c_colorrr = "red"; 
 
 @HostListener('document:keyup', ['$event'])
 handleKeyboardEvent(event: KeyboardEvent) {
   console.log(event);
   let x = event.keyCode;
-  let part = this.el.nativeElement.querySelector('.playerAvatar');
-  let compuStyle = window.getComputedStyle(part);
+  let compuStyle = window.getComputedStyle(this.part);
   let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
   origXVal = origXVal.split(')')[0];
   let origX = origXVal.split(',');
-  
+  let width = +this.size.width.split('px')[0];
+  console.log("WIDTH: "+width);
+  let height = +this.size.height.split('px')[0];
   switch (x) {
     case (37):
-      var newX = +origX[4] - 50;
+      var newX = +origX[4] - width;
       var oldY = +origX[5];
-      this.renderer.setElementStyle(part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+      this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
       break;
 
     case (38):
-      var newY = +origX[5] - 50;
+      var newY = +origX[5] - height;
       var oldX = +origX[4];
-      this.renderer.setElementStyle(part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
+      this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
       break;
 
 
     case (39):
-      var newX = +origX[4] + 50;
-      var oldY = +origX[5];
-      this.renderer.setElementStyle(part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+       newX = +origX[4] + width;
+       oldY = +origX[5];
+      this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
       break;
 
     case (40):
-      var newY = +origX[5] + 50;
-      var oldX = +origX[4];
-      this.renderer.setElementStyle(part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
+       newY = +origX[5] + height;
+       oldX = +origX[4];
+      this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
       break;
   }
 }

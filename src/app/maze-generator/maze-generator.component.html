@@ -1,9 +1,10 @@
 <div>
     <md-grid-list cols="{{columns}}" rowHeight="fit">
         <div *ngFor="let row of map">
-            <md-grid-tile *ngFor="let cell of row" [colspan]="1" [rowspan]="1">
+            <md-grid-tile #grid *ngFor="let cell of row" [colspan]="1" [rowspan]="1">
                 <app-cell [cell]="cell[0]"></app-cell>
             </md-grid-tile>
         </div>
     </md-grid-list>
+    <app-avatar class=".playerAvatar" #avatar></app-avatar>
 </div>
