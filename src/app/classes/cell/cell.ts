@@ -12,7 +12,7 @@ export class Cell {
       if(Math.floor(Math.random() * 5) > 3)
         this.hasCollectable = true;
       else
-        this.hasCollectable = false;
+        this.hasCollectable = true;
   }
   removeWall(direction:number){
     if(direction == 0)

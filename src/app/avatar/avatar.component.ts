@@ -43,7 +43,7 @@ ngOnInit() {
 
 ngAfterViewChecked(){
     console.log("EHHH");
-    if(typeof this.size === "undefined")
+    if(typeof this.size === "undefined" || (typeof this.gridLocation === "undefined"))
       return;
     console.log(this.size);
     console.log(this.gridLocation)
@@ -51,9 +51,11 @@ ngAfterViewChecked(){
     let width = +this.size.width.split('px')[0]
     let height = +this.size.height.split('px')[0]
     let dimension = this.part.getBoundingClientRect().width
-     this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left+width/2-dimension/2 + this.startPosition.x*width)+"px")
-     this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top+height/2-dimension/2 + this.startPosition.y*height)+"px")
-    console.log(this.startPosition.x*(this.gridLocation.left+width/2-dimension/2)+"px")
+     this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left+width/2-dimension/2 + this.startPosition.x*(1+width))+"px")
+     this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top+height/2-dimension/2 + this.startPosition.y*(1+height))+"px")
+    console.log((this.gridLocation.left+width/2-dimension/2 + this.startPosition.x*width))
+    console.log((this.gridLocation.top+height/2-dimension/2 + this.startPosition.y*height))
+    console.log("omar essam eldin hassan")
 }
 // @HostBinding('style.transform') c_colorrr = "red"; 
 
@@ -65,9 +67,9 @@ handleKeyboardEvent(event: KeyboardEvent) {
   let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
   origXVal = origXVal.split(')')[0];
   let origX = origXVal.split(',');
-  let width = +this.size.width.split('px')[0];
+  let width = +this.size.width.split('px')[0] + 1;
   console.log("WIDTH: "+width);
-  let height = +this.size.height.split('px')[0];
+  let height = +this.size.height.split('px')[0] + 1;
   switch (x) {
     case (37):
       var newX = +origX[4] - width;
