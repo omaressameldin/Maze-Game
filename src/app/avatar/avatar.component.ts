@@ -33,7 +33,7 @@ constructor(private el: ElementRef,
 }
 
 ngOnInit() {
-      this.part = this.el.nativeElement.querySelector('.playerAvatar');
+      this.part = this.el.nativeElement;
       // this.renderer.setElementyStyle(this.part, 'scale')
 
 }
@@ -49,6 +49,8 @@ handleKeyboardEvent(event: KeyboardEvent) {
   console.log(event);
   let x = event.keyCode;
   let compuStyle = window.getComputedStyle(this.part);
+  console.log("omar essam eldin")
+  console.log(compuStyle)
   let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
   origXVal = origXVal.split(')')[0];
   let origX = origXVal.split(',');

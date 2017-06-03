@@ -42,9 +42,6 @@ export class MazeGeneratorComponent implements OnInit {
     let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0]));
     this.dimensions =dim;
     this.cdr.detectChanges();
-    console.log("omar essam eldin")
-    console.log(dim);
-
   }
 
   generateMaze() {
