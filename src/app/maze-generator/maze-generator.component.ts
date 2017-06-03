@@ -8,17 +8,21 @@ import { Cell } from "../classes/cell/cell"
 export class MazeGeneratorComponent implements OnInit {
 
   @Output() update = new EventEmitter<any>();
-
-  @ViewChild('grid') input;
+  @ViewChild('grid') grid;
+  @ViewChild('gridItem') gridItem;
   @ViewChild('avatar') avatar;
   constructor(private el: ElementRef, private cdr: ChangeDetectorRef) { }
   rows: number;
+  gridLocation: object;
   columns: number;
   dimensions: number;
+  startPosition: object;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
     this.columns = Math.floor(Math.random() * 11) + 5;
+    this.startPosition =  {y: Math.floor(Math.random() * this.rows), x:  Math.floor(Math.random() * this.columns)};
+    this.avatar
     this.map = [];
     for (let i = 0; i < this.rows; i++) {
       this.map[i] = [];
@@ -33,16 +37,16 @@ export class MazeGeneratorComponent implements OnInit {
 
  
   ngAfterViewInit() {
-    let part2 = this.input._element.nativeElement;
+    let part2 = this.gridItem._element.nativeElement;
     console.log("BLEH");
     console.log(part2);
-    console.log(this.input._element.nativeElement);
+    console.log(this.gridItem._element.nativeElement);
     let compuStyle = window.getComputedStyle(part2);
     console.log(compuStyle);
      var stylesObj = { width: compuStyle.width, height: compuStyle.height };
     console.log(stylesObj);
     this.avatar.size = stylesObj;
-
+    this.gridLocation =  {left: this.gridItem._element.nativeElement.getBoundingClientRect().left, top: this.gridItem._element.nativeElement.getBoundingClientRect().top };
     let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0]));
     this.dimensions =dim;
     this.cdr.detectChanges();

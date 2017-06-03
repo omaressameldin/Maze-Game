@@ -28,6 +28,9 @@ export class AvatarComponent implements OnInit {
   size:any;  
   part:any;
   @Input() map: Array<Array<[Cell, boolean]>>;
+  @Input() gridLocation:object;
+  @Input() startPosition: object;
+
 constructor(private el: ElementRef, 
   private renderer: Renderer) {
 }
@@ -41,6 +44,7 @@ ngOnInit() {
 ngAfterViewChecked(){
     console.log("EHHH");
     console.log(this.size);
+    console.log(this.gridLocation)
 }
 // @HostBinding('style.transform') c_colorrr = "red"; 
 
@@ -49,8 +53,6 @@ handleKeyboardEvent(event: KeyboardEvent) {
   console.log(event);
   let x = event.keyCode;
   let compuStyle = window.getComputedStyle(this.part);
-  console.log("omar essam eldin")
-  console.log(compuStyle)
   let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
   origXVal = origXVal.split(')')[0];
   let origX = origXVal.split(',');
