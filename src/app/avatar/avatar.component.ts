@@ -28,15 +28,19 @@ export class AvatarComponent implements OnInit {
   part: any;
   @Input() map: Array<Array<[Cell, boolean]>>;
   @Input() gridLocation: { top: number, left: number };
-  @Input() currentPosition: { x: number, y: number };
-
+  @Input() startPosition: { x: number, y: number };
+  x: number
+  currentPosition: { x: number, y: number };
+  currentIsStart: boolean;
   constructor(private el: ElementRef,
     private renderer: Renderer) {
   }
 
   ngOnInit() {
     this.part = this.el.nativeElement;
-
+    this.currentPosition = { x: 0, y: 0 };
+    this.currentIsStart = false;
+    // this.currentPosition.y = 0;
     // this.renderer.setElementyStyle(this.part, 'scale')
 
   }
@@ -47,14 +51,19 @@ export class AvatarComponent implements OnInit {
       return;
     console.log(this.size);
     console.log(this.gridLocation)
-    console.log(this.currentPosition)
+    console.log(this.startPosition)
     let width = +this.size.width.split('px')[0]
     let height = +this.size.height.split('px')[0]
     let dimension = this.part.getBoundingClientRect().width
-    this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left + width / 2 - dimension / 2 + this.currentPosition.x * (1 + width)) + "px")
-    this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top + height / 2 - dimension / 2 + this.currentPosition.y * (1 + height)) + "px")
-    console.log((this.gridLocation.left + width / 2 - dimension / 2 + this.currentPosition.x * width))
-    console.log((this.gridLocation.top + height / 2 - dimension / 2 + this.currentPosition.y * height))
+    this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left + width / 2 - dimension / 2 + this.startPosition.x * (1 + width)) + "px")
+    this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top + height / 2 - dimension / 2 + this.startPosition.y * (1 + height)) + "px")
+    if (!this.currentIsStart) {
+      this.currentPosition.x = this.startPosition.x;
+      this.currentPosition.y = this.startPosition.y;
+      this.currentIsStart = true;
+    }
+    console.log((this.gridLocation.left + width / 2 - dimension / 2 + this.startPosition.x * width))
+    console.log((this.gridLocation.top + height / 2 - dimension / 2 + this.startPosition.y * height))
     console.log("omar essam eldin hassan")
     console.log(this.currentPosition)
   }
@@ -76,48 +85,48 @@ export class AvatarComponent implements OnInit {
     switch (keyCode) {
       case (37):
         if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left))
-          return;
+          break;
 
         var newX = +origX[4] - width;
         var oldY = +origX[5];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
-                  this.currentPosition.x--;
+        this.currentPosition.x--;
 
         break;
 
       case (38):
-       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up))
-            return;
-         
+        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up))
+          break;
+
         var newY = +origX[5] - height;
         var oldX = +origX[4];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
-                  this.currentPosition.y--;
+        this.currentPosition.y--;
 
         break;
 
 
       case (39):
-      if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right))
-            return;
-          
+        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right))
+          break;
+
         newX = +origX[4] + width;
         oldY = +origX[5];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
-                 this.currentPosition.x++;
+        this.currentPosition.x++;
 
         break;
 
       case (40):
-       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down))
-            return;
-         
+        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down))
+          break;
+
         newY = +origX[5] + height;
         oldX = +origX[4];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
-                 this.currentPosition.y++;
+        this.currentPosition.y++;
 
         break;
     }
-    }
   }
+}
