@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   Directive,
-  Renderer,
+  Renderer2,
   HostListener,
   HostBinding,
   ElementRef,
@@ -122,7 +122,7 @@ export class AvatarComponent implements OnInit {
   shakeCounter = 0;
   imgSource: String;
   constructor(private el: ElementRef,
-    private renderer: Renderer) {
+    private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -140,8 +140,8 @@ export class AvatarComponent implements OnInit {
     let width = +this.size.width.split('px')[0]
     let height = +this.size.height.split('px')[0]
     let dimension = this.part.getBoundingClientRect().width
-    this.renderer.setElementStyle(this.part, 'left', (this.gridLocation.left + width / 2 - dimension / 2 + this.startPosition.x * (1 + width)) + "px")
-    this.renderer.setElementStyle(this.part, 'top', (this.gridLocation.top + height / 2 - dimension / 2 + this.startPosition.y * (1 + height)) + "px")
+    this.renderer.setStyle(this.part, 'left', (this.gridLocation.left + width / 2 - dimension / 2 + this.startPosition.x * (1 + width)) + "px")
+    this.renderer.setStyle(this.part, 'top', (this.gridLocation.top + height / 2 - dimension / 2 + this.startPosition.y * (1 + height)) + "px")
     if (!this.currentIsStart) {
       this.currentPosition.x = this.startPosition.x;
       this.currentPosition.y = this.startPosition.y;
@@ -184,7 +184,7 @@ export class AvatarComponent implements OnInit {
         }
         var newX = +origX[4] - width;
         var oldY = +origX[5];
-        this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+        this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x--;
         this.moving = true;
         break;
@@ -203,7 +203,7 @@ export class AvatarComponent implements OnInit {
         }
         var newY = +origX[5] - height;
         var oldX = +origX[4];
-        this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
+        this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y--;
         this.moving = true;
         break;
@@ -222,7 +222,7 @@ export class AvatarComponent implements OnInit {
         }
         newX = +origX[4] + width;
         oldY = +origX[5];
-        this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+        this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x++;
         this.moving = true
         break;
@@ -241,7 +241,7 @@ export class AvatarComponent implements OnInit {
         }
         newY = +origX[5] + height;
         oldX = +origX[4];
-        this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
+        this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
         break;
@@ -251,7 +251,7 @@ export class AvatarComponent implements OnInit {
           this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
           this.startPosition.collectables --;
         }  
-        this.moving = false;            
+        this.moving = false; 
         })    
 
 

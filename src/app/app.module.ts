@@ -10,6 +10,7 @@ import {MdGridListModule} from "@angular/material";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CellComponent } from './cell/cell.component';
 import { AvatarControllerComponent } from './avatar-controller/avatar-controller.component';
+import { HammerSwipesDirective } from './directives/hammer-swipes.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AvatarControllerComponent } from './avatar-controller/avatar-controller
     MazeGeneratorComponent,
     AvatarComponent,
     CellComponent,
-    AvatarControllerComponent
+    AvatarControllerComponent,
+    HammerSwipesDirective
   ],
   imports: [
     BrowserModule,
