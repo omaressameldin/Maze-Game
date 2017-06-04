@@ -1,4 +1,4 @@
-<div>
+<div (onGesture)="swyped($event)">
     <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
         <div *ngFor="let row of map; let i = index">
             <md-grid-tile #gridItem *ngFor="let cell of row; let j = index" [colspan]="1" [rowspan]="1">

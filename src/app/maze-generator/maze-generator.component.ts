@@ -1,9 +1,10 @@
 import { ViewChild, Component, OnInit, Output, EventEmitter, ElementRef, ChangeDetectorRef  } from '@angular/core';
 import { Cell } from "../classes/cell/cell"
+
 @Component({
   selector: 'app-maze-generator',
   templateUrl: './maze-generator.component.html',
-  styleUrls: ['./maze-generator.component.css']
+  styleUrls: ['./maze-generator.component.css'],
 })
 export class MazeGeneratorComponent implements OnInit {
 
@@ -51,6 +52,7 @@ export class MazeGeneratorComponent implements OnInit {
     this.dimensions =dim;
     this.moveFunction = this.avatar.move;
     this.cdr.detectChanges();
+
   }
 
 
@@ -85,6 +87,11 @@ export class MazeGeneratorComponent implements OnInit {
       }
     }
     console.log(this.startPosition.collectables)
+  }
+
+  swyped(event:any){
+    console.log(event)
+    console.log("AYWA BA2A WE YALLA BA2A")
   }
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
     let neighbors = [];
