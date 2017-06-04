@@ -87,6 +87,19 @@ import { Cell } from "../classes/cell/cell"
 
 
         ]))
+      ]),
+      state('SERIOUSLYSHAKEY', style({ height: '*' })),
+      transition('* => SERIOUSLYSHAKEY', [style({ height: '*' }),
+      animate("3s ease-in", keyframes([
+
+        style({ transform: 'scale(20)', offset: 0.1 }),
+        style({ transform: 'skew(30deg,30deg) rotate(180deg)', offset: 0.4 }),
+        // style({ transform: 'skewY(20deg)', offset: 0.8 }),
+        // style({ transform: '', offset: 0.7 })
+      ]))
+
+
+
       ])
     ]
     )]
