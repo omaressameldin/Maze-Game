@@ -112,12 +112,13 @@ import { Cell } from "../classes/cell/cell"
 export class AvatarComponent implements OnInit {
   size: { width: string, height: string };
   part: any;
-  @Input() map: Array<Array<[Cell, boolean]>>;
+  @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
-  @Input() startPosition: { x: number, y: number };
+  @Input() startPosition: { x: number, y: number, collectables: number };
   currentPosition: { x: number, y: number };
   currentIsStart: boolean;
   isShakey: String;
+  moving: boolean;
   shakeCounter = 0;
   imgSource: String;
   constructor(private el: ElementRef,
@@ -126,7 +127,7 @@ export class AvatarComponent implements OnInit {
 
   ngOnInit() {
     this.part = this.el.nativeElement;
-    this.currentPosition = { x: 0, y: 0 };
+    this.currentPosition = { x: 0, y: 0};
     this.currentIsStart = false;
     this.imgSource = "https://upload.wikimedia.org/wikipedia/en/d/d3/Shy_Guy_%28Mario%29.png";
 
@@ -155,16 +156,16 @@ export class AvatarComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event);
     this.move(event.keyCode)
   }
   move = (keyCode) => {
+    if(this.moving)
+      return
     let compuStyle = window.getComputedStyle(this.part);
     let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
     origXVal = origXVal.split(')')[0];
     let origX = origXVal.split(',');
     let width = +this.size.width.split('px')[0] + 1;
-    console.log("WIDTH: " + width);
     let height = +this.size.height.split('px')[0] + 1;
     switch (keyCode) {
       case (37):
@@ -184,6 +185,7 @@ export class AvatarComponent implements OnInit {
         var oldY = +origX[5];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x--;
+        this.moving = true;
         break;
 
       case (38):
@@ -202,6 +204,7 @@ export class AvatarComponent implements OnInit {
         var oldX = +origX[4];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y--;
+        this.moving = true;
         break;
 
       case (39):
@@ -220,6 +223,7 @@ export class AvatarComponent implements OnInit {
         oldY = +origX[5];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x++;
+        this.moving = true
         break;
 
       case (40):
@@ -238,7 +242,17 @@ export class AvatarComponent implements OnInit {
         oldX = +origX[4];
         this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
+        this.moving = true
         break;
     }
+     this.renderer.listen(this.part, 'transitionend', (event) => {
+        if(this.moving && this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable){ 
+          this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
+          this.startPosition.collectables --;
+        }  
+        this.moving = false;            
+        })    
+
+
   }
 }
