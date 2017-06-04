@@ -8,6 +8,8 @@ import {Cell} from "../classes/cell/cell"
 })
 export class CellComponent implements OnInit {
  @Input() cell: Cell;
+ @Input() indexX:number;
+ @Input() indexY:number;
   constructor() { }
 
   ngOnInit() {
