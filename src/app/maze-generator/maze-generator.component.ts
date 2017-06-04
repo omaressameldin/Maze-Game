@@ -32,6 +32,10 @@ export class MazeGeneratorComponent implements OnInit {
       }
     }
     this.generateMaze();
+    if(this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable){
+      this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable = false;
+      this.startPosition.collectables--;      
+    }
 
   }
 

@@ -136,6 +136,7 @@ export class AvatarComponent implements OnInit {
   ngAfterViewChecked() {
     if (typeof this.size === "undefined" || (typeof this.gridLocation === "undefined"))
       return;
+
     let width = +this.size.width.split('px')[0]
     let height = +this.size.height.split('px')[0]
     let dimension = this.part.getBoundingClientRect().width
@@ -150,7 +151,7 @@ export class AvatarComponent implements OnInit {
 
   onDone($event: any) {
     this.isShakey = "nahh";
-    this.imgSource = "https://upload.wikimedia.org/wikipedia/en/d/d3/Shy_Guy_%28Mario%29.png";
+    this.imgSource = "https://s3.amazonaws.com/frt-prod/cms/files/files/000/000/069/original/Mario_Pixeles.png";
 
   }
 
