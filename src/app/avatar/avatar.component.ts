@@ -127,7 +127,7 @@ export class AvatarComponent implements OnInit {
 
   ngOnInit() {
     this.part = this.el.nativeElement;
-    this.currentPosition = { x: 0, y: 0};
+    this.currentPosition = { x: 0, y: 0 };
     this.currentIsStart = false;
     this.imgSource = "https://upload.wikimedia.org/wikipedia/en/d/d3/Shy_Guy_%28Mario%29.png";
 
@@ -157,102 +157,121 @@ export class AvatarComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    this.move(event.keyCode)
+    this.move(event)
   }
-  move = (keyCode) => {
-    if(this.moving)
+
+  swyped(event: any) {
+    console.log(event)
+    console.log("ANA FE AVATAR YAMMA")
+    this.move(event)
+  }
+  // @HostListener('')
+  move = (event) => {
+    if (this.moving)
       return
+    let keyCode = event.keyCode;
     let compuStyle = window.getComputedStyle(this.part);
     let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
     origXVal = origXVal.split(')')[0];
     let origX = origXVal.split(',');
     let width = +this.size.width.split('px')[0] + 1;
     let height = +this.size.height.split('px')[0] + 1;
-    switch (keyCode) {
-      case (37):
-        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
-          if (this.shakeCounter == 5) {
-            this.isShakey = "SERIOUSLYSHAKEY";
-            this.shakeCounter = 0;
-            this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
-          }
-          else {
-            this.isShakey = "SHAKEYSIDES";
-            this.shakeCounter++;
-          }
-          break;
+    if (keyCode == 37 || event == 'swipeleft') {
+      if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
+        if (this.shakeCounter == 5) {
+          this.isShakey = "SERIOUSLYSHAKEY";
+          this.shakeCounter = 0;
+          this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
+        else {
+          this.isShakey = "SHAKEYSIDES";
+          this.shakeCounter++;
+        }
+        // break;
+      }
+      else {
         var newX = +origX[4] - width;
         var oldY = +origX[5];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x--;
         this.moving = true;
-        break;
-
-      case (38):
-        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up)) {
-          if (this.shakeCounter == 5) {
-            this.isShakey = "SERIOUSLYSHAKEY";
-            this.shakeCounter = 0;
-            this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
-          }
-          else {
-            this.isShakey = "SHAKEYUPP";
-            this.shakeCounter++;
-          } break;
+        // break;
+      }
+    }
+    else if (keyCode == 38 || event == 'swipeup') {
+      if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up)) {
+        if (this.shakeCounter == 5) {
+          this.isShakey = "SERIOUSLYSHAKEY";
+          this.shakeCounter = 0;
+          this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
+        else {
+          this.isShakey = "SHAKEYUPP";
+          this.shakeCounter++;
+        }
+        // break;
+      }
+      else {
         var newY = +origX[5] - height;
         var oldX = +origX[4];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y--;
         this.moving = true;
-        break;
-
-      case (39):
-        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
-          if (this.shakeCounter == 5) {
-            this.isShakey = "SERIOUSLYSHAKEY";
-            this.shakeCounter = 0;
-            this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
-          }
-          else {
-            this.isShakey = "SHAKEYSIDES";
-            this.shakeCounter++;
-          } break;
+        // break;
+      }
+    }
+    else if (keyCode == '39' || event == 'swiperight') {
+      if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
+        if (this.shakeCounter == 5) {
+          this.isShakey = "SERIOUSLYSHAKEY";
+          this.shakeCounter = 0;
+          this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
+        else {
+          this.isShakey = "SHAKEYSIDES";
+          this.shakeCounter++;
+        }
+        // break;
+      }
+      else {
         newX = +origX[4] + width;
         oldY = +origX[5];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
         this.currentPosition.x++;
         this.moving = true
-        break;
-
-      case (40):
-        if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
-          if (this.shakeCounter == 5) {
-            this.isShakey = "SERIOUSLYSHAKEY";
-            this.shakeCounter = 0;
-            this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
-          }
-          else {
-            this.isShakey = "SHAKEYUPP";
-            this.shakeCounter++;
-          } break;
+        // break;
+      }
+    }
+    // case (40):
+    else if (keyCode == 40 || event == 'swipedown') {
+      if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
+        if (this.shakeCounter == 5) {
+          this.isShakey = "SERIOUSLYSHAKEY";
+          this.shakeCounter = 0;
+          this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
+        else {
+          this.isShakey = "SHAKEYUPP";
+          this.shakeCounter++;
+        }
+        // break;
+      }
+      else {
         newY = +origX[5] + height;
         oldX = +origX[4];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
-        break;
+        // break;
+      }
     }
-     this.renderer.listen(this.part, 'transitionend', (event) => {
-        if(this.moving && this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable){ 
-          this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
-          this.startPosition.collectables --;
-        }  
-        this.moving = false; 
-        })    
+    this.renderer.listen(this.part, 'transitionend', (event) => {
+      if (this.moving && this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable) {
+        this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
+        this.startPosition.collectables--;
+      }
+      this.moving = false;
+    })
 
 
   }
