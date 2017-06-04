@@ -16,13 +16,13 @@ export class MazeGeneratorComponent implements OnInit {
   gridLocation: object;
   columns: number;
   dimensions: number;
-  startPosition: object;
+  startPosition: {x: number, y:number, collectables: number};
   moveFunction: any;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
     this.columns = Math.floor(Math.random() * 11) + 5;
-    this.startPosition =  {y: Math.floor(Math.random() * this.rows), x:  Math.floor(Math.random() * this.columns)};
+    this.startPosition =  {y: Math.floor(Math.random() * this.rows), x:  Math.floor(Math.random() * this.columns), collectables: 0};
     this.avatar
     this.map = [];
     for (let i = 0; i < this.rows; i++) {
@@ -32,6 +32,10 @@ export class MazeGeneratorComponent implements OnInit {
       }
     }
     this.generateMaze();
+    if(this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable){
+      this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable = false;
+      this.startPosition.collectables--;      
+    }
 
   }
 
@@ -39,13 +43,8 @@ export class MazeGeneratorComponent implements OnInit {
  
   ngAfterViewInit() {
     let part2 = this.gridItem._element.nativeElement;
-    console.log("BLEH");
-    console.log(part2);
-    console.log(this.gridItem._element.nativeElement);
     let compuStyle = window.getComputedStyle(part2);
-    console.log(compuStyle);
      var stylesObj = { width: compuStyle.width, height: compuStyle.height };
-    console.log(stylesObj);
     this.avatar.size = stylesObj;
     this.gridLocation =  {left: this.gridItem._element.nativeElement.getBoundingClientRect().left, top: this.gridItem._element.nativeElement.getBoundingClientRect().top };
     let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0])) /2;
@@ -62,6 +61,8 @@ export class MazeGeneratorComponent implements OnInit {
     currentCell.push(Math.floor(Math.random() * this.rows));
     currentCell.push(Math.floor(Math.random() * this.columns));
     this.map[currentCell[0]][currentCell[1]][1] = true;
+    if(this.map[currentCell[0]][currentCell[1]][0].hasCollectable)
+      this.startPosition.collectables ++;     
     while (unvisitedCells > 0) {
       let unvisitedNeighbors = this.getUnvisitedNeighbors(currentCell);
       if (unvisitedNeighbors.length > 0) {
@@ -74,15 +75,16 @@ export class MazeGeneratorComponent implements OnInit {
         this.map[choosenNeighbor[0]][choosenNeighbor[1]][0].removeWall((randomUnvisitedNeighbor + 2) % 4);
         currentCell = choosenNeighbor
         this.map[currentCell[0]][currentCell[1]][1] = true;
+        if(this.map[currentCell[0]][currentCell[1]][0].hasCollectable)
+          this.startPosition.collectables ++; 
+        
         unvisitedCells--;
       }
       else {
         currentCell = cellsStack.pop()
       }
     }
-    console.log(this.rows);
-    console.log(this.columns);
-    console.log(this.map);
+    console.log(this.startPosition.collectables)
   }
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
     let neighbors = [];

@@ -1,3 +1,3 @@
 <div [ngClass]="{ 'cell':true, 'leftBorder': !cell.left, 'rightBorder': !cell.right, 'topBorder': !cell.up, 'bottomBorder': !cell.down}">
-    <div class="collectable" *ngIf="cell.hasCollectable"> {{indexX}} : {{indexY}}</div>
+    <img class="collectable" *ngIf="cell.hasCollectable" src="https://vignette2.wikia.nocookie.net/mario/images/a/a6/Super_Mushroom_Artwork_-_Super_Mario_3D_World.png/revision/latest?cb=20131217032455" />
 </div>
