@@ -8,13 +8,15 @@ import { MazeGeneratorComponent } from './maze-generator/maze-generator.componen
 import {MdGridListModule} from "@angular/material";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CellComponent } from './cell/cell.component';
+import { AvatarControllerComponent } from './avatar-controller/avatar-controller.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MazeGeneratorComponent,
     AvatarComponent,
-    CellComponent
+    CellComponent,
+    AvatarControllerComponent
   ],
   imports: [
     BrowserModule,

@@ -62,15 +62,17 @@ ngAfterViewChecked(){
 @HostListener('document:keyup', ['$event'])
 handleKeyboardEvent(event: KeyboardEvent) {
   console.log(event);
-  let x = event.keyCode;
+  this.move(event.keyCode)
+}
+move = (keyCode) => {
   let compuStyle = window.getComputedStyle(this.part);
   let origXVal = compuStyle.getPropertyValue("transform").split('(')[1];
   origXVal = origXVal.split(')')[0];
   let origX = origXVal.split(',');
   let width = +this.size.width.split('px')[0] + 1;
   console.log("WIDTH: "+width);
-  let height = +this.size.height.split('px')[0] + 1;
-  switch (x) {
+  let height = +this.size.height.split('px')[0] + 1;  
+  switch (keyCode) {
     case (37):
       var newX = +origX[4] - width;
       var oldY = +origX[5];
@@ -95,6 +97,6 @@ handleKeyboardEvent(event: KeyboardEvent) {
        oldX = +origX[4];
       this.renderer.setElementStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
       break;
-  }
+  }  
 }
 }

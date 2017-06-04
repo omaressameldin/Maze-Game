@@ -17,6 +17,7 @@ export class MazeGeneratorComponent implements OnInit {
   columns: number;
   dimensions: number;
   startPosition: object;
+  moveFunction: any;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
@@ -49,6 +50,7 @@ export class MazeGeneratorComponent implements OnInit {
     this.gridLocation =  {left: this.gridItem._element.nativeElement.getBoundingClientRect().left, top: this.gridItem._element.nativeElement.getBoundingClientRect().top };
     let dim = Math.min(Number(compuStyle.width.match( /\d+/g )[0]), Number(compuStyle.height.match( /\d+/g )[0])) /2;
     this.dimensions =dim;
+    this.moveFunction = this.avatar.move;
     this.cdr.detectChanges();
   }
 
