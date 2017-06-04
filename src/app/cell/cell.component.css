@@ -55,3 +55,13 @@
         height: 100%
     }
 }
+
+.collectable {
+    width: 15%;
+}
+
+.collectable::before {
+    content: '';
+    padding: 50% 0;
+    display: inline-block;
+}

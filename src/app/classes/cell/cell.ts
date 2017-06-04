@@ -9,7 +9,7 @@ export class Cell {
       this.up = false;
       this.right = false;
       this.down = false;
-      if(Math.floor(Math.random() * 5) > 3)
+      if(Math.floor(Math.random() * 7) > 5)
         this.hasCollectable = true;
       else
         this.hasCollectable = false;
