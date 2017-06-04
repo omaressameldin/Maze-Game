@@ -10,5 +10,5 @@ app-cell {
 }
 
 :host{
-    touch-action:none;
+    touch-action:manipulation;
 }
