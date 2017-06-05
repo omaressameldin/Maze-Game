@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MazeGeneratorComponent } from './maze-generator/maze-generator.component';
-import {MdGridListModule} from "@angular/material";
+import { MdGridListModule } from "@angular/material";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CellComponent } from './cell/cell.component';
 import { AvatarControllerComponent } from './avatar-controller/avatar-controller.component';
@@ -27,7 +27,7 @@ import { HammerSwipesDirective } from './directives/hammer-swipes.directive';
     HttpModule,
     MdGridListModule,
     BrowserAnimationsModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
