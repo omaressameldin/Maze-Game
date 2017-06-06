@@ -10,6 +10,7 @@ import {MdGridListModule} from "@angular/material";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CellComponent } from './cell/cell.component';
 import { AvatarControllerComponent } from './avatar-controller/avatar-controller.component';
+import { SolveMazeService } from './solve-maze.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AvatarControllerComponent } from './avatar-controller/avatar-controller
     BrowserAnimationsModule
     
   ],
-  providers: [],
+  providers: [SolveMazeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

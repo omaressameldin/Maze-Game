@@ -1,5 +1,7 @@
 import { ViewChild, Component, OnInit, Output, EventEmitter, ElementRef, ChangeDetectorRef  } from '@angular/core';
 import { Cell } from "../classes/cell/cell"
+import { SolveMazeService } from '../solve-maze.service';
+
 @Component({
   selector: 'app-maze-generator',
   templateUrl: './maze-generator.component.html',
@@ -11,7 +13,7 @@ export class MazeGeneratorComponent implements OnInit {
   @ViewChild('grid') grid;
   @ViewChild('gridItem') gridItem;
   @ViewChild('avatar') avatar;
-  constructor(private el: ElementRef, private cdr: ChangeDetectorRef) { }
+  constructor(private el: ElementRef, private cdr: ChangeDetectorRef, private solveMazeService: SolveMazeService) { }
   rows: number;
   gridLocation: object;
   columns: number;
@@ -19,9 +21,10 @@ export class MazeGeneratorComponent implements OnInit {
   startPosition: {x: number, y:number, collectables: number};
   moveFunction: any;
   map: Array<Array<[Cell, boolean]>>;
+  solution: Array<string>
   ngOnInit() {
-    this.rows = Math.floor(Math.random() * 11) + 5;
-    this.columns = Math.floor(Math.random() * 11) + 5;
+    this.rows = 4;
+    this.columns = 4;
     this.startPosition =  {y: Math.floor(Math.random() * this.rows), x:  Math.floor(Math.random() * this.columns), collectables: 0};
     this.avatar
     this.map = [];
@@ -35,8 +38,10 @@ export class MazeGeneratorComponent implements OnInit {
     if(this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable){
       this.map[this.startPosition.y][this.startPosition.x][0].hasCollectable = false;
       this.startPosition.collectables--;      
-    }
-
+    }       
+    this.solveMazeService.solveMaze(this.startPosition, this.map)
+    .then(solution => this.solution = solution);
+ console.log("5alas");
   }
 
 
@@ -84,7 +89,6 @@ export class MazeGeneratorComponent implements OnInit {
         currentCell = cellsStack.pop()
       }
     }
-    console.log(this.startPosition.collectables)
   }
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
     let neighbors = [];

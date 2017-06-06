@@ -115,10 +115,12 @@ export class AvatarComponent implements OnInit {
   @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
   @Input() startPosition: { x: number, y: number, collectables: number };
+  @Input() solution: Array<string>;
   currentPosition: { x: number, y: number };
   currentIsStart: boolean;
   isShakey: String;
   moving: boolean;
+  solving: boolean;
   shakeCounter = 0;
   imgSource: String;
   constructor(private el: ElementRef,
@@ -157,7 +159,40 @@ export class AvatarComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    this.move(event.keyCode)
+    if(this.solving)
+      return;
+    if(event.keyCode > 40 || event.keyCode < 37){
+      console.log("solution")
+      console.log(this.solution)
+      this.solve();
+    }
+    else
+      this.move(event.keyCode)
+  }
+  solve(){
+    this.solving = true;
+    if(this.solution.length == 0){
+      return;
+    }    
+  let step = this.solution.shift();
+  switch(step){
+    case("left"):
+      this.move(37);
+      break;
+    case("up"):
+      this.move(38);
+      break;
+    case("right"):
+      this.move(39);
+      break;   
+    case("down"):
+      this.move(40);
+      break;  
+    default:
+  }   
+  setTimeout(()=>{
+    this.solve();     
+  },1000)      
   }
   move = (keyCode) => {
     if(this.moving)
