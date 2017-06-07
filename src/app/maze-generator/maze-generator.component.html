@@ -1,11 +1,18 @@
 <div (onGesture)="swyped($event)" appHammerSwipes>
     <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
+
         <div *ngFor="let row of map; let i = index">
             <md-grid-tile #gridItem *ngFor="let cell of row; let j = index" [colspan]="1" [rowspan]="1">
                 <app-cell [cell]="cell[0]" [indexX]="i" [indexY]="j"></app-cell>
             </md-grid-tile>
+
         </div>
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
     </md-grid-list>
-    <app-avatar [map]="map" [gridLocation]="gridLocation" [startPosition]="startPosition" [style.width.px]="dimensions" [style.height.px]="dimensions" class="playerAvatar" #avatar></app-avatar>
+
+    <app-avatar [map]="map" [gridLocation]="gridLocation" [startPosition]="startPosition" [style.width.px]="dimensions" [style.height.px]="dimensions"
+        class="playerAvatar" #avatar></app-avatar>
     <app-avatar-controller [move]="avatar.move"></app-avatar-controller>
 </div>
