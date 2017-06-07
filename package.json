@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
- 
   "scripts": {
     "start": "http-server",
     "lint": "tslint \"src/**/*.ts\"",
