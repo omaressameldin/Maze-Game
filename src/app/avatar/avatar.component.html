@@ -1,2 +1,4 @@
-<div [@shakeyshakey]="isShakey"  (@shakeyshakey.done)="onDone(event)"> <img class="playerAvatar" [src]="imgSource" id="stickman" />
+<div [@shakeyshakey]="isShakey" (@shakeyshakey.done)="onDone(event)">
+        <!--<img class="playerAvatar" [src]="imgSource" id="stickman" />-->
+    <div [@whereChuGoing]="whereTo" (@whereChuGoing.done)="whereDone(event)" [ngClass]="{'mario':true, 'lookLeft':lookingLeft}"></div>
 </div>

@@ -27,42 +27,50 @@ import { Cell } from "../classes/cell/cell"
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.css'],
   animations: [
-    trigger('shakeyshakey', [
-      state('SHAKEYSIDES', style({ height: '*' })),
-      transition('* => SHAKEYSIDES', [
-        style({ height: '*' }),
-        animate("0.82s cubic-bezier(.36,.07,.19,.97)", keyframes([
-          // style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.1 }),
-          // style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.9 }),
-
-
-          // style({ transform: 'translate3d(2px, 0, 0)', offset: 0.2 }),
-          // style({ transform: 'translate3d(2px, 0, 0)', offset: 0.8 }),
-
-          // style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.3 }),
-          // style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.5 }),
-          // style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.7 }),
-
-          // style({ transform: 'translate3d(4px, 0, 0)', offset: 0.4 }),
-          // style({ transform: 'translate3d(4px, 0, 0)', offset: 0.6 })
-          style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.1 }),
-
-
-          style({ transform: 'translate3d(2px, 0, 0)', offset: 0.2 }),
-
-          style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.3 }),
-          style({ transform: 'translate3d(4px, 0, 0)', offset: 0.4 }),
-
-          style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.5 }),
-          style({ transform: 'translate3d(4px, 0, 0)', offset: 0.6 }),
-
-          style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.7 }),
-          style({ transform: 'translate3d(2px, 0, 0)', offset: 0.8 }),
-
-          style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.9 })
-
+    trigger('whereChuGoing', [
+      state('walking', style({}),
+      ),
+      transition('* => walking', [
+        animate("0.5s linear", keyframes([
+          style({ background: 'url(assets/mariowalk.png)', offset: 0.3 }),
+          style({ background: 'url(assets/mariopause.png)', offset: 0.6 }),
+          style({ background: 'url(assets/mariowalk.png)', offset: 0.8 }),
 
         ]))
+      ]),
+      
+      state('jumping', style({background: 'url(assets/mariojump2.png)'}),
+      ),
+      transition('* => jumping', [
+        animate("0.01s")
+        // , keyframes([
+        //   // style({ background: 'url(assets/mariojump1.png)', offset: 0.3 }),
+        //   // style({ background: 'url(assets/mariojump2.png)', offset: 0.1 }),
+        //   // style({ background: 'url(assets/mariojump3.png)', offset: 0.8 }),
+
+        // ]))
+      ]),
+       state('nowhere', style({background: 'url(assets/mariopause.png)'}),
+      ),
+      transition('* =>nowhere',animate(1))
+          ]),
+    trigger('shakeyshakey', [
+      state('SHAKEYSIDES', style({ height: '*' })),
+      transition('* => SHAKEYSIDES', [style({ height: '*' }),
+      animate("0.82s cubic-bezier(.36,.07,.19,.97)", keyframes([
+
+        style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.1 }),
+        style({ transform: 'translate3d(2px, 0, 0)', offset: 0.2 }),
+        style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.3 }),
+        style({ transform: 'translate3d(4px, 0, 0)', offset: 0.4 }),
+        style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.5 }),
+        style({ transform: 'translate3d(4px, 0, 0)', offset: 0.6 }),
+        style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.7 }),
+        style({ transform: 'translate3d(2px, 0, 0)', offset: 0.8 }),
+        style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.9 })
+
+
+      ]))
       ]),
       state('SHAKEYUPP', style({ height: '*' })),
       transition('* => SHAKEYUPP', [
@@ -70,21 +78,14 @@ import { Cell } from "../classes/cell/cell"
         animate("0.82s cubic-bezier(.36,.07,.19,.97)", keyframes([
 
           style({ transform: 'translate3d(0, -1px, 0)', offset: 0.1 }),
-
-
           style({ transform: 'translate3d(0, 2px, 0)', offset: 0.2 }),
-
           style({ transform: 'translate3d(0, -4px, 0)', offset: 0.3 }),
           style({ transform: 'translate3d(0, 4px, 0)', offset: 0.4 }),
-
           style({ transform: 'translate3d(0, -4px, 0)', offset: 0.5 }),
           style({ transform: 'translate3d(0, 4px, 0)', offset: 0.6 }),
-
           style({ transform: 'translate3d(0, -4px, 0)', offset: 0.7 }),
           style({ transform: 'translate3d(0, 2px, 0)', offset: 0.8 }),
-
           style({ transform: 'translate3d(0, -1px, 0)', offset: 0.9 })
-
 
         ]))
       ]),
@@ -94,11 +95,7 @@ import { Cell } from "../classes/cell/cell"
 
         style({ transform: 'scale(20)', offset: 0.1 }),
         style({ transform: 'skew(30deg,30deg) rotate(180deg)', offset: 0.4 }),
-        // style({ transform: 'skewY(20deg)', offset: 0.8 }),
-        // style({ transform: '', offset: 0.7 })
       ]))
-
-
 
       ])
     ]
@@ -121,6 +118,8 @@ export class AvatarComponent implements OnInit {
   moving: boolean;
   shakeCounter = 0;
   imgSource: String;
+  whereTo: String;
+  lookingLeft:boolean;
   constructor(private el: ElementRef,
     private renderer: Renderer2) {
   }
@@ -129,6 +128,8 @@ export class AvatarComponent implements OnInit {
     this.part = this.el.nativeElement;
     this.currentPosition = { x: 0, y: 0 };
     this.currentIsStart = false;
+    this.lookingLeft = false;
+    // this.whereTo = "nowhere";
     this.imgSource = "https://upload.wikimedia.org/wikipedia/en/d/d3/Shy_Guy_%28Mario%29.png";
 
   }
@@ -155,6 +156,16 @@ export class AvatarComponent implements OnInit {
 
   }
 
+  whereDone($event: any) {
+    // if (this.moving) {
+    //   switch (this.whereTo) {
+    //     case ("right"): console.log("ANIMATION DONE" + this.whereTo); this.whereTo = "nowhere"; this.whereTo = "right"; break;
+    //     case ("left"): this.whereTo = "left"; break;
+    //   }
+
+    // }
+  }
+
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     this.move(event)
@@ -177,6 +188,7 @@ export class AvatarComponent implements OnInit {
     let width = +this.size.width.split('px')[0] + 1;
     let height = +this.size.height.split('px')[0] + 1;
     if (keyCode == 37 || event == 'swipeleft') {
+      this.lookingLeft = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
@@ -193,6 +205,7 @@ export class AvatarComponent implements OnInit {
         var newX = +origX[4] - width;
         var oldY = +origX[5];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+        this.whereTo = "walking";
         this.currentPosition.x--;
         this.moving = true;
         // break;
@@ -215,12 +228,14 @@ export class AvatarComponent implements OnInit {
         var newY = +origX[5] - height;
         var oldX = +origX[4];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
+        this.whereTo = "jumping";
         this.currentPosition.y--;
         this.moving = true;
         // break;
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
+      this.lookingLeft = false;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
@@ -237,6 +252,7 @@ export class AvatarComponent implements OnInit {
         newX = +origX[4] + width;
         oldY = +origX[5];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + newX + 'px,' + oldY + 'px)');
+        this.whereTo = "walking";
         this.currentPosition.x++;
         this.moving = true
         // break;
@@ -271,6 +287,7 @@ export class AvatarComponent implements OnInit {
         this.startPosition.collectables--;
       }
       this.moving = false;
+      this.whereTo = "nowhere";
     })
 
 
