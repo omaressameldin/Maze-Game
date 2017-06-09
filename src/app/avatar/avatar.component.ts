@@ -43,12 +43,6 @@ import { Cell } from "../classes/cell/cell"
       ),
       transition('* => jumping', [
         animate("0.01s")
-        // , keyframes([
-        //   // style({ background: 'url(assets/mariojump1.png)', offset: 0.3 }),
-        //   // style({ background: 'url(assets/mariojump2.png)', offset: 0.1 }),
-        //   // style({ background: 'url(assets/mariojump3.png)', offset: 0.8 }),
-
-        // ]))
       ]),
        state('nowhere', style({backgroundImage: 'url(assets/mariopause.png)'}),
       ),
@@ -102,10 +96,6 @@ import { Cell } from "../classes/cell/cell"
     )]
 })
 
-@Directive({
-  selector: "[playerAvatar]"
-})
-
 export class AvatarComponent implements OnInit {
   size: { width: string, height: string };
   part: any;
@@ -129,9 +119,7 @@ export class AvatarComponent implements OnInit {
     this.currentPosition = { x: 0, y: 0 };
     this.currentIsStart = false;
     this.lookingLeft = false;
-    // this.whereTo = "nowhere";
     this.imgSource = "https://upload.wikimedia.org/wikipedia/en/d/d3/Shy_Guy_%28Mario%29.png";
-
   }
 
   ngAfterViewChecked() {
@@ -156,15 +144,6 @@ export class AvatarComponent implements OnInit {
 
   }
 
-  whereDone($event: any) {
-    // if (this.moving) {
-    //   switch (this.whereTo) {
-    //     case ("right"): console.log("ANIMATION DONE" + this.whereTo); this.whereTo = "nowhere"; this.whereTo = "right"; break;
-    //     case ("left"): this.whereTo = "left"; break;
-    //   }
-
-    // }
-  }
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -176,7 +155,6 @@ export class AvatarComponent implements OnInit {
     console.log("ANA FE AVATAR YAMMA")
     this.move(event)
   }
-  // @HostListener('')
   move = (event) => {
     if (this.moving)
       return
@@ -199,7 +177,6 @@ export class AvatarComponent implements OnInit {
           this.isShakey = "SHAKEYSIDES";
           this.shakeCounter++;
         }
-        // break;
       }
       else {
         var newX = +origX[4] - width;
@@ -208,7 +185,6 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x--;
         this.moving = true;
-        // break;
       }
     }
     else if (keyCode == 38 || event == 'swipeup') {
@@ -222,7 +198,6 @@ export class AvatarComponent implements OnInit {
           this.isShakey = "SHAKEYUPP";
           this.shakeCounter++;
         }
-        // break;
       }
       else {
         var newY = +origX[5] - height;
@@ -231,7 +206,6 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "jumping";
         this.currentPosition.y--;
         this.moving = true;
-        // break;
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
@@ -246,7 +220,6 @@ export class AvatarComponent implements OnInit {
           this.isShakey = "SHAKEYSIDES";
           this.shakeCounter++;
         }
-        // break;
       }
       else {
         newX = +origX[4] + width;
@@ -255,10 +228,8 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x++;
         this.moving = true
-        // break;
       }
     }
-    // case (40):
     else if (keyCode == 40 || event == 'swipedown') {
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
         if (this.shakeCounter == 5) {
@@ -270,7 +241,6 @@ export class AvatarComponent implements OnInit {
           this.isShakey = "SHAKEYUPP";
           this.shakeCounter++;
         }
-        // break;
       }
       else {
         newY = +origX[5] + height;
@@ -278,7 +248,6 @@ export class AvatarComponent implements OnInit {
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
-        // break;
       }
     }
     this.renderer.listen(this.part, 'transitionend', (event) => {
