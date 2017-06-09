@@ -32,14 +32,14 @@ import { Cell } from "../classes/cell/cell"
       ),
       transition('* => walking', [
         animate("0.5s linear", keyframes([
-          style({ background: 'url(assets/mariowalk.png)', offset: 0.3 }),
-          style({ background: 'url(assets/mariopause.png)', offset: 0.6 }),
-          style({ background: 'url(assets/mariowalk.png)', offset: 0.8 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.3 }),
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.6 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.8 }),
 
         ]))
       ]),
       
-      state('jumping', style({background: 'url(assets/mariojump2.png)'}),
+      state('jumping', style({backgroundImage: 'url(assets/mariojump2.png)'}),
       ),
       transition('* => jumping', [
         animate("0.01s")
@@ -50,7 +50,7 @@ import { Cell } from "../classes/cell/cell"
 
         // ]))
       ]),
-       state('nowhere', style({background: 'url(assets/mariopause.png)'}),
+       state('nowhere', style({backgroundImage: 'url(assets/mariopause.png)'}),
       ),
       transition('* =>nowhere',animate(1))
           ]),
