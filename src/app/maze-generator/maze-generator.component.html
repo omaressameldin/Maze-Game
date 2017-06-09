@@ -1,4 +1,9 @@
-<div (onGesture)="swyped($event)" appHammerSwipes>
+<div [ngClass]="{componentsWrapper:true}" (onGesture)="swyped($event)" appHammerSwipes>
+    <md-toolbar>
+        <div><i class="material-icons">view_quilt</i><span>Mario Maze</span></div>
+        <div><i class="material-icons ">face</i><span>collectables:</span> <span>{{this.startPosition.collectables}}</span></div>
+        <a md-raised-button> <i class="material-icons ">lightbulb_outline</i> solve</a>
+    </md-toolbar>
     <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
         <div *ngFor="let row of map; let i = index">
             <md-grid-tile #gridItem *ngFor="let cell of row; let j = index" [colspan]="1" [rowspan]="1">
