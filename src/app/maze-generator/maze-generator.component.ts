@@ -23,6 +23,7 @@ export class MazeGeneratorComponent implements OnInit {
   dimensions: number;
   startPosition: { x: number, y: number, collectables: number };
   moveFunction: any;
+  staticCollectables: number;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
@@ -97,7 +98,7 @@ export class MazeGeneratorComponent implements OnInit {
         currentCell = cellsStack.pop()
       }
     }
-    console.log(this.startPosition.collectables)
+    this.staticCollectables = this.startPosition.collectables;
   }
 
   swyped(event: any) {

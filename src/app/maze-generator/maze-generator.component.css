@@ -28,3 +28,34 @@ app-cell {
     background-color: #00BCD4;
     color: white;
 }
+
+.toolbarTitleIcon {
+    font-size: xx-large;
+}
+
+.toolbarTitle {
+    font-size: large;
+}
+
+.toolbarText {
+    font-size: medium;
+}
+
+.toolbarTextIcon {
+    font-size: large;
+}
+
+@media only screen and (max-width:1200px) {
+    .toolbarTitleIcon {
+        font-size: large;
+    }
+    .toolbarTitle {
+        font-size: medium;
+    }
+    .toolbarText {
+        font-size: medium;
+    }
+    .toolbarTextIcon {
+        font-size: medium;
+    }
+}

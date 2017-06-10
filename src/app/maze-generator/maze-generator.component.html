@@ -1,7 +1,7 @@
 <div [ngClass]="{componentsWrapper:true}" (onGesture)="swyped($event)" appHammerSwipes>
     <md-toolbar>
-        <div><i class="material-icons">view_quilt</i><span>Mario Maze</span></div>
-        <div><i class="material-icons ">face</i><span>collectables:</span> <span>{{this.startPosition.collectables}}</span></div>
+        <div><i class="material-icons toolbarTitleIcon">view_quilt</i><span class="toolbarTitle">Mario Maze</span></div>
+        <div><i class="material-icons toolbarText">face</i><span class="toolbarText">collectables:</span> <span class="red">{{this.staticCollectables - this.startPosition.collectables}}</span><span> / {{this.staticCollectables}} </span></div>
         <a (click)="openDialog()" md-raised-button> <i class="material-icons ">lightbulb_outline</i> solve</a>
     </md-toolbar>
     <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
