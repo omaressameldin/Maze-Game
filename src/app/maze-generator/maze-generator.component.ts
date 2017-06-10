@@ -55,7 +55,10 @@ export class MazeGeneratorComponent implements OnInit {
     let dim = Math.min(Number(compuStyle.width.match(/\d+/g)[0]), Number(compuStyle.height.match(/\d+/g)[0])) / 2;
     this.dimensions = dim;
     this.moveFunction = this.avatar.move;
-      this.openDialog();
+    setTimeout(()=>{
+      this.openDialog()
+    },2400 )
+      
     this.cdr.detectChanges();
   }
 
