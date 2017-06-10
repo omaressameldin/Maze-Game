@@ -3,7 +3,9 @@ md-grid-list {
     margin: 0;
     padding: 0;
       /*background-color: yellow!important;*/
-        background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+         background:url(../../assets/bricks-bg.png) repeat-x bottom, radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);;
+  /*background-repeat: repeat-x;
+  background-position: bottom;*/
 
      /*height: 100%;*/
   overflow: hidden;
@@ -92,6 +94,66 @@ app-cell {
   -webkit-text-fill-color: transparent;
 }
 
+
+.dayBackground{
+ /*background:url(../../assets/skybackground.png);*/
+   background-image:url(../../assets/bricks-bg.png);
+   /*background-size: contain;*/
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-color: #5E91FE;
+  /*height:80%;*/
+  position:relative;
+}
+.dayBackground:before, .dayBackground:after{
+  width:100%;
+  content:'';
+  display:block;
+  position:absolute;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+.dayBackground:after{
+  background-image:url(https://s10.postimg.org/r5fs4o1nd/cloud_lg.png);
+  height:196px;
+  bottom:240px;
+  animation-duration:47.1s;
+  -webkit-animation-duration:47.1s;
+   animation-name:clouds-lg;
+  -webkit-animation-name:clouds-lg;
+}
+.dayBackground:before{
+  background-image:url(https://s10.postimg.org/679m6l1sp/cloud_sm.png);
+  height:181px;
+  bottom:300px;
+  animation-duration:58.5s;
+  -webkit-animation-duration:58.5s;
+  animation-name:clouds-sm;
+  -webkit-animation-name:clouds-sm;
+}
+.bricks{
+  background-image:url(../../assets/bricks-bg.png);
+  background-color: transparent!important;
+  background-repeat: repeat-x;
+  z-index: 500;
+}
+@keyframes clouds-lg{
+  100%{background-position:-634px 0px;}
+}
+@-webkit-keyframes clouds-lg{
+  100%{background-position-x:-634px;}
+}
+@keyframes clouds-sm{
+  100%{background-position:-485px 0px;}
+}
+@-webkit-keyframes clouds-sm{
+  100%{background-position-x:-485px;}
+}
+
 @keyframes animStar {
   from {
     transform: translateY(0px);
@@ -99,4 +161,5 @@ app-cell {
   to {
     transform: translateY(-2000px);
   }
+
 }

@@ -22,6 +22,7 @@ export class MazeGeneratorComponent implements OnInit {
   dimensions: number;
   startPosition: { x: number, y: number, collectables: number };
   moveFunction: any;
+  isNightMode: boolean;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     // this.rows = Math.floor(Math.random() * 11) + 5;
@@ -29,7 +30,7 @@ export class MazeGeneratorComponent implements OnInit {
     this.rows = 5;
     this.columns = 5;
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
-    this.avatar
+    this.isNightMode = false;
     this.map = [];
     for (let i = 0; i < this.rows; i++) {
       this.map[i] = [];
@@ -57,7 +58,7 @@ export class MazeGeneratorComponent implements OnInit {
     this.dimensions = dim;
     this.moveFunction = this.avatar.move;
     this.cdr.detectChanges();
-
+    console.log("NIGHT :: " +this.isNightMode);
   }
 
 
@@ -100,6 +101,11 @@ export class MazeGeneratorComponent implements OnInit {
     this.avatar.swyped(event);
   }
 
+  updateNightMode(event){
+    console.log("Avatar Night: "+event);
+    console.log("Maze Night: "+this.isNightMode);
+    this.isNightMode = !this.isNightMode;
+  }
 
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
     let neighbors = [];

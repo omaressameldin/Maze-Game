@@ -55,7 +55,7 @@ import { Cell } from "../classes/cell/cell"
       transition('* => jumpingUp', [
         animate("0.01s")
       ]),
-       state('jumpingDown', style({ backgroundImage: 'url(assets/mariojump1.png)' }),
+      state('jumpingDown', style({ backgroundImage: 'url(assets/mariojump1.png)' }),
       ),
       transition('* => jumpingDown', [
         animate("0.01s")
@@ -119,6 +119,8 @@ export class AvatarComponent implements OnInit {
   @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
   @Input() startPosition: { x: number, y: number, collectables: number };
+  @Output('nightUpdate') nightModeUpdate:EventEmitter<boolean> =  new EventEmitter<boolean>();
+  @Input() isNightMode: boolean;
   currentPosition: { x: number, y: number };
   currentIsStart: boolean;
   isShakey: String;
@@ -173,8 +175,6 @@ export class AvatarComponent implements OnInit {
   }
 
   swyped(event: any) {
-    console.log(event)
-    console.log("ANA FE AVATAR YAMMA")
     this.move(event)
   }
   move = (event) => {
@@ -188,11 +188,13 @@ export class AvatarComponent implements OnInit {
     let width = +this.size.width.split('px')[0] + 1;
     let height = +this.size.height.split('px')[0] + 1;
     if (keyCode == 37 || event == 'swipeleft') {
+                // this.isNightMode = !this.isNightMode;
       this.lookingLeft = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
         this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+                this.nightModeUpdate.emit(true)
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -217,6 +219,8 @@ export class AvatarComponent implements OnInit {
 
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+                this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -242,6 +246,8 @@ export class AvatarComponent implements OnInit {
         this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+                this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -266,6 +272,8 @@ export class AvatarComponent implements OnInit {
         this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+                this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }

@@ -1,5 +1,5 @@
 <div (onGesture)="swyped($event)" appHammerSwipes>
-    <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
+    <md-grid-list [ngClass]="{'dayBackground':!isNightMode}" #grid cols="{{columns}}" rowHeight="fit">
 
         <div *ngFor="let row of map; let i = index">
             <md-grid-tile #gridItem *ngFor="let cell of row">
@@ -12,7 +12,7 @@
         <div id='stars3'></div>
     </md-grid-list>
 
-    <app-avatar [map]="map" [gridLocation]="gridLocation" [startPosition]="startPosition" [style.width.px]="dimensions" [style.height.px]="dimensions"
+    <app-avatar [map]="map" (nightUpdate)="updateNightMode($event)" [gridLocation]="gridLocation" [startPosition]="startPosition" [style.width.px]="dimensions" [style.height.px]="dimensions"
          #avatar></app-avatar>
     <app-avatar-controller [move]="avatar.move"></app-avatar-controller>
 </div>
