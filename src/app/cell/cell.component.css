@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white!important;
+    background-color: transparent!important;
 }
 
 .cell::after,
@@ -65,3 +65,4 @@
     padding: 50% 0;
     display: inline-block;
 }
+

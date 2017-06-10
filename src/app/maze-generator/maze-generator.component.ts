@@ -26,6 +26,7 @@ export class MazeGeneratorComponent implements OnInit {
   ngOnInit() {
     this.rows = Math.floor(Math.random() * 11) + 5;
     this.columns = Math.floor(Math.random() * 11) + 5;
+
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
     this.avatar
     this.map = [];
