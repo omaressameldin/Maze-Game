@@ -59,6 +59,7 @@ md-toolbar {
     width: 50vw!important;
     height: 80vh !important;
     text-align: center;
+    padding: 5px;
 }
 
 .red {
