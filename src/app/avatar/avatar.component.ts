@@ -31,23 +31,39 @@ import { Cell } from "../classes/cell/cell"
       state('walking', style({}),
       ),
       transition('* => walking', [
-        animate("0.5s linear", keyframes([
-          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.3 }),
-          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.6 }),
-          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.8 }),
+        animate("0.8s linear", keyframes([
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.1 }),
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.2 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.3 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.4 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.5 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.6 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.7 }),
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.8 }),
+
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.9 }),
+
 
         ]))
       ]),
-      
-      state('jumping', style({backgroundImage: 'url(assets/mariojump2.png)'}),
+
+      state('jumpingUp', style({ backgroundImage: 'url(assets/mariojump2.png)' }),
       ),
-      transition('* => jumping', [
+      transition('* => jumpingUp', [
         animate("0.01s")
       ]),
-       state('nowhere', style({backgroundImage: 'url(assets/mariopause.png)'}),
+       state('jumpingDown', style({ backgroundImage: 'url(assets/mariojump1.png)' }),
       ),
-      transition('* =>nowhere',animate(1))
-          ]),
+      transition('* => jumpingDown', [
+        animate("0.01s")
+      ]),
+      state('nowhere', style({ backgroundImage: 'url(assets/mariopause.png)' }),
+      ),
+      transition('* =>nowhere', animate(1))
+    ]),
     trigger('shakeyshakey', [
       state('SHAKEYSIDES', style({ height: '*' })),
       transition('* => SHAKEYSIDES', [style({ height: '*' }),
@@ -110,7 +126,7 @@ export class AvatarComponent implements OnInit {
   shakeCounter = 0;
   imgSource: String;
   whereTo: String;
-  lookingLeft:boolean;
+  lookingLeft: boolean;
   constructor(private el: ElementRef,
     private renderer: Renderer2) {
   }
@@ -142,10 +158,10 @@ export class AvatarComponent implements OnInit {
   onDone($event: any) {
     this.isShakey = "nahh";
     this.imgSource = "https://s3.amazonaws.com/frt-prod/cms/files/files/000/000/069/original/Mario_Pixeles.png";
-            this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = false;
-            this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = false;
-            this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = false;
-            this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = false;
 
 
   }
@@ -195,8 +211,10 @@ export class AvatarComponent implements OnInit {
       }
     }
     else if (keyCode == 38 || event == 'swipeup') {
-            this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = true;
+
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
           this.shakeCounter = 0;
@@ -211,16 +229,17 @@ export class AvatarComponent implements OnInit {
         var newY = +origX[5] - height;
         var oldX = +origX[4];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
-        this.whereTo = "jumping";
+        this.whereTo = "jumpingUp";
         this.currentPosition.y--;
         this.moving = true;
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
-                  this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
 
       this.lookingLeft = false;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
           this.shakeCounter = 0;
@@ -241,9 +260,10 @@ export class AvatarComponent implements OnInit {
       }
     }
     else if (keyCode == 40 || event == 'swipedown') {
-                        this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
 
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
           this.shakeCounter = 0;
@@ -257,6 +277,8 @@ export class AvatarComponent implements OnInit {
       else {
         newY = +origX[5] + height;
         oldX = +origX[4];
+        this.whereTo = "jumpingDown";
+
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
