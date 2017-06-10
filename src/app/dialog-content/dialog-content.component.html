@@ -1,3 +1,31 @@
-<p>
-  dialog-content works!
-</p>
+<div class="dialogContainer full">
+    <h1>Welcome to Mario Maze</h1>
+    <div class="row">
+        <div class="dialogContainer">
+            <i class="material-icons up">keyboard_arrow_up</i>
+            <div class="row2">
+                <i class="material-icons ">keyboard_arrow_left</i>
+                <i class="material-icons ">keyboard_arrow_right</i>
+            </div>
+            <i class="material-icons down">keyboard_arrow_down</i>
+        </div>
+        <div class="dialogContainer bigger">
+            <p class="dialogText">
+                Use the arrow keys to navigate <img class="img" src="https://s3.amazonaws.com/frt-prod/cms/files/files/000/000/069/original/Mario_Pixeles.png" /> through the <i class="red">MAZE</i> and collect all the<img class="img" src="https://vignette2.wikia.nocookie.net/mario/images/a/a6/Super_Mushroom_Artwork_-_Super_Mario_3D_World.png/revision/latest?cb=20131217032455"
+                /> with the <i class="red"> Minimum</i> number of steps
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="dialogContainer">
+            <i class="material-icons up veryBig">system_update</i>
+        </div>
+        <div class="dialogContainer bigger">
+            <p class="dialogText">
+                If you are using a mobile you can either swipe to move or use the keys at the bottom <i class="material-icons up">keyboard_arrow_left</i> <i class="material-icons up">keyboard_arrow_up</i> <i class="material-icons up">keyboard_arrow_down</i>                <i class="material-icons up">keyboard_arrow_right</i>
+            </p>
+        </div>
+    </div>
+
+    <a (click)="dialogRef.close()" md-raised-button> <i class="material-icons close">close</i> </a>
+</div>

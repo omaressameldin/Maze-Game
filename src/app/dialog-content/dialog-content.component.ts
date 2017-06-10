@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MdDialogRef} from '@angular/material';
 @Component({
   selector: 'app-dialog-content',
   templateUrl: './dialog-content.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MdDialogRef<DialogContentComponent>) { }
 
   ngOnInit() {
   }

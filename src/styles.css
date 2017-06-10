@@ -40,3 +40,28 @@ md-toolbar {
         transform: rotate(360deg)
     }
 }
+
+.cdk-overlay-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.mat-dialog-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    width: 50vw!important;
+    height: 80vh !important;
+    text-align: center;
+}
+
+@media only screen and (max-width:800px) {
+    .mat-dialog-container {
+        width: 100vw!important;
+        height: 90vh !important;
+    }
+}
