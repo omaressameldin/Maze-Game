@@ -99,6 +99,7 @@ import { Cell } from "../classes/cell/cell"
 export class AvatarComponent implements OnInit {
   size: { width: string, height: string };
   part: any;
+  // @Output()  cellBorderHit = new EventEmitter<Array<[number, number, Cell]>>();
   @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
   @Input() startPosition: { x: number, y: number, collectables: number };
@@ -141,6 +142,11 @@ export class AvatarComponent implements OnInit {
   onDone($event: any) {
     this.isShakey = "nahh";
     this.imgSource = "https://s3.amazonaws.com/frt-prod/cms/files/files/000/000/069/original/Mario_Pixeles.png";
+            this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = false;
+            this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = false;
+            this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = false;
+            this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = false;
+
 
   }
 
@@ -168,6 +174,7 @@ export class AvatarComponent implements OnInit {
     if (keyCode == 37 || event == 'swipeleft') {
       this.lookingLeft = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
+        this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
           this.shakeCounter = 0;
@@ -188,6 +195,7 @@ export class AvatarComponent implements OnInit {
       }
     }
     else if (keyCode == 38 || event == 'swipeup') {
+            this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up)) {
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
@@ -209,6 +217,8 @@ export class AvatarComponent implements OnInit {
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
+                  this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
+
       this.lookingLeft = false;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
         if (this.shakeCounter == 5) {
@@ -231,6 +241,8 @@ export class AvatarComponent implements OnInit {
       }
     }
     else if (keyCode == 40 || event == 'swipedown') {
+                        this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
+
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
