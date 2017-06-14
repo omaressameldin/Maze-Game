@@ -29,10 +29,10 @@ export class MazeGeneratorComponent implements OnInit {
   staticCollectables: number;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
-    // this.rows = Math.floor(Math.random() * 11) + 5;
-    // this.columns = Math.floor(Math.random() * 11) + 5;
-    this.rows = 3;
-    this.columns = 3;
+    this.rows = Math.floor(Math.random() * 11) + 5;
+    this.columns = Math.floor(Math.random() * 11) + 5;
+    // this.rows = 3;
+    // this.columns = 3;
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
     this.isNightMode = false;
     this.map = [];
