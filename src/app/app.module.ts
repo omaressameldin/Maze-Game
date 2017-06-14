@@ -6,11 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MazeGeneratorComponent } from './maze-generator/maze-generator.component';
-import { MdGridListModule } from "@angular/material";
+import { MdGridListModule, MdToolbarModule, MdButtonModule, MdDialogModule  } from "@angular/material";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CellComponent } from './cell/cell.component';
 import { AvatarControllerComponent } from './avatar-controller/avatar-controller.component';
 import { HammerSwipesDirective } from './directives/hammer-swipes.directive';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
 
 @NgModule({
   declarations: [
@@ -19,16 +20,22 @@ import { HammerSwipesDirective } from './directives/hammer-swipes.directive';
     AvatarComponent,
     CellComponent,
     AvatarControllerComponent,
-    HammerSwipesDirective
+    HammerSwipesDirective,
+    DialogContentComponent
   ],
+  entryComponents: [DialogContentComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MdGridListModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdDialogModule,
     BrowserAnimationsModule
 
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { Cell } from "../classes/cell/cell"
-
+import {MdDialog} from '@angular/material';
+import {DialogContentComponent} from "../dialog-content/dialog-content.component"
 @Component({
   selector: 'app-maze-generator',
   templateUrl: './maze-generator.component.html',
@@ -15,7 +16,7 @@ export class MazeGeneratorComponent implements OnInit {
   @ViewChild('grid') grid;
   @ViewChild('gridItem') gridItem;
   @ViewChild('avatar') avatar;
-  constructor(private el: ElementRef, private cdr: ChangeDetectorRef) { }
+  constructor(public dialog: MdDialog, private el: ElementRef, private cdr: ChangeDetectorRef) { }
   rows: number;
   gridLocation: object;
   columns: number;
@@ -23,6 +24,7 @@ export class MazeGeneratorComponent implements OnInit {
   startPosition: { x: number, y: number, collectables: number };
   moveFunction: any;
   isNightMode: boolean;
+  staticCollectables: number;
   map: Array<Array<[Cell, boolean]>>;
   ngOnInit() {
     // this.rows = Math.floor(Math.random() * 11) + 5;
@@ -57,8 +59,16 @@ export class MazeGeneratorComponent implements OnInit {
     let dim = Math.min(Number(compuStyle.width.match(/\d+/g)[0]), Number(compuStyle.height.match(/\d+/g)[0])) / 2;
     this.dimensions = dim;
     this.moveFunction = this.avatar.move;
+    setTimeout(()=>{
+      this.openDialog()
+    },2400 )
+      
     this.cdr.detectChanges();
-    console.log("NIGHT :: " +this.isNightMode);
+
+  }
+
+  openDialog(){
+    this.dialog.open(DialogContentComponent);
   }
 
 
@@ -92,7 +102,7 @@ export class MazeGeneratorComponent implements OnInit {
         currentCell = cellsStack.pop()
       }
     }
-    console.log(this.startPosition.collectables)
+    this.staticCollectables = this.startPosition.collectables;
   }
 
   swyped(event: any) {
