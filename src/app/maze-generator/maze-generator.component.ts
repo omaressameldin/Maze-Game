@@ -5,6 +5,8 @@ import {
 import { Cell } from "../classes/cell/cell"
 import {MdDialog} from '@angular/material';
 import {DialogContentComponent} from "../dialog-content/dialog-content.component"
+
+
 @Component({
   selector: 'app-maze-generator',
   templateUrl: './maze-generator.component.html',
@@ -29,8 +31,8 @@ export class MazeGeneratorComponent implements OnInit {
   ngOnInit() {
     // this.rows = Math.floor(Math.random() * 11) + 5;
     // this.columns = Math.floor(Math.random() * 11) + 5;
-    this.rows = 5;
-    this.columns = 5;
+    this.rows = 3;
+    this.columns = 3;
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
     this.isNightMode = false;
     this.map = [];
@@ -68,9 +70,20 @@ export class MazeGeneratorComponent implements OnInit {
   }
 
   openDialog(){
-    this.dialog.open(DialogContentComponent);
+    console.log("HAAA")
+    // this.dialog.open(DialogContentComponent, {data: 'ehhhfalse'});
+    let dialogRef = this.dialog.open(DialogContentComponent, {data: 'dataehhh',});
+    // let dialogRef = dialog.open(YourDialog, { data: 'your data',});
   }
 
+
+  gameOver(event){
+    let dialogRef = this.dialog.open(DialogContentComponent, {data: 'dataehhh'});
+  }
+  
+  toggleNightMode(){
+    this.isNightMode = !this.isNightMode;
+  }
 
   generateMaze() {
     let unvisitedCells = this.rows * this.columns - 1;
@@ -111,11 +124,12 @@ export class MazeGeneratorComponent implements OnInit {
     this.avatar.swyped(event);
   }
 
-  updateNightMode(event){
-    console.log("Avatar Night: "+event);
-    console.log("Maze Night: "+this.isNightMode);
-    this.isNightMode = !this.isNightMode;
-  }
+  // updateNightMode(event){
+  //   console.log("Avatar Night: "+event);
+  //   console.log("Maze Night: "+this.isNightMode);
+  //   this.isNightMode = !this.isNightMode;
+  // }
+
 
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
     let neighbors = [];

@@ -2,6 +2,8 @@
     <md-toolbar>
         <div><i class="material-icons toolbarTitleIcon">view_quilt</i><span class="toolbarTitle">Mario Maze</span></div>
         <div><i class="material-icons toolbarText">face</i><span class="toolbarText">collectables:</span> <span class="red">{{this.staticCollectables - this.startPosition.collectables}}</span><span> / {{this.staticCollectables}} </span></div>
+             <a md-mini-fab (click)="toggleNightMode()" md-raised-button> <i class="material-icons ">lightbulb_outline</i></a>
+
         <a (click)="openDialog()" md-raised-button> <i class="material-icons ">lightbulb_outline</i> solve</a>
     </md-toolbar>
     <md-grid-list [ngClass]="{'dayBackground':!isNightMode}" #grid cols="{{columns}}" rowHeight="fit">
@@ -17,7 +19,9 @@
         <div id='stars3'></div>
     </md-grid-list>
 
-    <app-avatar [map]="map" (nightUpdate)="updateNightMode($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
+    <!--<app-avatar [map]="map" (nightUpdate)="updateNightMode($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
+        [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>-->
+            <app-avatar [map]="map" (collectedUpdate)="gameOver($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
         [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>
     <app-avatar-controller [move]="avatar.move"></app-avatar-controller>
 </div>
