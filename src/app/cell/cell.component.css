@@ -29,24 +29,27 @@
 .rightBorder::before {
     /*border-right: 3px solid #4267B2;*/
     border-right: 3px solid yellow;
-
+    z-index: 300;
     right: 0;
 }
 .leftBorder::after {
     /*border-left: 3px solid #4267B2;*/
     border-left: 3px solid yellow;
+    z-index: 300;
 
     left: 0;
 }
 .bottomBorder::after {
     /*border-bottom: 3px solid #4267B2;*/
     border-bottom: 3px solid yellow;
+    z-index: 300;
 
     bottom: 0;
 }
 .topBorder::before {
     /*border-top: 3px solid #4267B2;*/
     border-top: 3px solid yellow;
+    z-index: 300;
 
     top: 0;
 }

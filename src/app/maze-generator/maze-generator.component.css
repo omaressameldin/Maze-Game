@@ -3,7 +3,8 @@ md-grid-list {
     margin: 0;
     padding: 0;
       /*background-color: yellow!important;*/
-         background:url(../../assets/bricks-bg.png) repeat-x bottom, radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);;
+         /*background:url(../../assets/bricks-bg.png) repeat-x bottom, radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);*/
+         background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   /*background-repeat: repeat-x;
   background-position: bottom;*/
 
@@ -97,11 +98,12 @@ app-cell {
 
 .dayBackground{
  /*background:url(../../assets/skybackground.png);*/
-   background-image:url(../../assets/bricks-bg.png);
+   /*background-image:url(../../assets/bricks-bg.png);*/
    /*background-size: contain;*/
-  background-repeat: repeat-x;
+   background: #5E91fE repeat-x bottom;
+  /*background-repeat: repeat-x;
   background-position: bottom;
-  background-color: #5E91FE;
+  background-color: #5E91FE;*/
   /*height:80%;*/
   position:relative;
 }
@@ -110,6 +112,7 @@ app-cell {
   content:'';
   display:block;
   position:absolute;
+  z-index: 200;
   animation-iteration-count: infinite;
   -webkit-animation-iteration-count: infinite;
   animation-timing-function: linear;
