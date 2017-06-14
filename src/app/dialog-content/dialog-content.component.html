@@ -1,7 +1,7 @@
-<div *ngIf="data; else gameOverTemp" class="dialogContainer full">
-    <h1>Welcome to Mario Maze {{data}}</h1>
+<div *ngIf="!data; else gameOverTemp" class="dialogContainer full">
+    <div md-dialog-title><h1>Welcome to Mario Maze</h1></div>
     <div class="row">
-        <div class="dialogContainer">
+        <div md-dialog-content class="dialogContainer">
             <i class="material-icons up">keyboard_arrow_up</i>
             <div class="row2">
                 <i class="material-icons ">keyboard_arrow_left</i>
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <a (click)="dialogRef.close()" md-raised-button> <i class="material-icons close">close</i> </a>
+   <div md-dialog-actions> <a (click)="dialogRef.close()" md-raised-button> <i class="material-icons close">close</i> </a></div>
 </div>
 
 <ng-template #gameOverTemp><div class="dialogContainer full">
@@ -59,6 +59,6 @@
         </div>
     </div>
 
-    <a (click)="playAgain()" md-raised-button> <i class="material-icons close">Play Again</i> </a>
+    <a (click)="playAgain()" md-raised-button> Play Again </a>
 </div>
 </ng-template>

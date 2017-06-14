@@ -9,8 +9,6 @@ export class DialogContentComponent implements OnInit {
 
   gameOver: boolean;
   constructor(public dialogRef: MdDialogRef<DialogContentComponent>, @Inject(MD_DIALOG_DATA) public data: any) {
-        console.log("EH BA2A: ",data);
-        this.gameOver= data;
    }
 
   ngOnInit() {
