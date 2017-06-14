@@ -119,8 +119,10 @@ export class AvatarComponent implements OnInit {
   @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
   @Input() startPosition: { x: number, y: number, collectables: number };
+  @Input() movesSoFar: { moves: number };
+
   // @Output('nightUpdate') nightModeUpdate:EventEmitter<boolean> =  new EventEmitter<boolean>();
-    @Output('collectedUpdate') collectedUpate:EventEmitter<boolean> =  new EventEmitter<boolean>();
+  @Output('collectedUpdate') collectedUpate: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // @Input() isNightMode: boolean;
   currentPosition: { x: number, y: number };
@@ -190,13 +192,13 @@ export class AvatarComponent implements OnInit {
     let width = +this.size.width.split('px')[0] + 1;
     let height = +this.size.height.split('px')[0] + 1;
     if (keyCode == 37 || event == 'swipeleft') {
-                // this.isNightMode = !this.isNightMode;
+      // this.isNightMode = !this.isNightMode;
       this.lookingLeft = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
         this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
-                // this.nightModeUpdate.emit(true)
+          // this.nightModeUpdate.emit(true)
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -212,6 +214,8 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x--;
         this.moving = true;
+        this.movesSoFar.moves++;
+        console.log("WALAHY HEYA EL MOVES FE AVATAR: ", this.movesSoFar);
       }
     }
     else if (keyCode == 38 || event == 'swipeup') {
@@ -221,7 +225,7 @@ export class AvatarComponent implements OnInit {
 
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
-                // this.nightModeUpdate.emit(true)
+          // this.nightModeUpdate.emit(true)
 
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
@@ -238,6 +242,8 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "jumpingUp";
         this.currentPosition.y--;
         this.moving = true;
+        this.movesSoFar.moves++;
+
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
@@ -248,7 +254,7 @@ export class AvatarComponent implements OnInit {
         this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
-                // this.nightModeUpdate.emit(true)
+          // this.nightModeUpdate.emit(true)
 
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
@@ -265,6 +271,8 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x++;
         this.moving = true
+        this.movesSoFar.moves++;
+
       }
     }
     else if (keyCode == 40 || event == 'swipedown') {
@@ -274,7 +282,7 @@ export class AvatarComponent implements OnInit {
         this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
-                // this.nightModeUpdate.emit(true)
+          // this.nightModeUpdate.emit(true)
 
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
@@ -292,16 +300,18 @@ export class AvatarComponent implements OnInit {
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
+        this.movesSoFar.moves++;
+
       }
     }
     this.renderer.listen(this.part, 'transitionend', (event) => {
       if (this.moving && this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable) {
         this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
         this.startPosition.collectables--;
-        if(this.startPosition.collectables == 0)
-        this.collectedUpate.emit(true)
+        if (this.startPosition.collectables == 0)
+          this.collectedUpate.emit(true)
       }
-      
+
       this.moving = false;
       this.whereTo = "nowhere";
     })

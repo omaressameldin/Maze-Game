@@ -21,7 +21,7 @@
 
     <!--<app-avatar [map]="map" (nightUpdate)="updateNightMode($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
         [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>-->
-            <app-avatar [map]="map" (collectedUpdate)="gameOver($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
+            <app-avatar [movesSoFar]="movesSoFar" [map]="map" (collectedUpdate)="gameOver($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
         [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>
     <app-avatar-controller [move]="avatar.move"></app-avatar-controller>
 </div>

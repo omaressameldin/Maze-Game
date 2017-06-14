@@ -1,64 +1,51 @@
-<div *ngIf="!data; else gameOverTemp" class="dialogContainer full">
-    <div md-dialog-title><h1>Welcome to Mario Maze</h1></div>
-    <div class="row">
-        <div md-dialog-content class="dialogContainer">
-            <i class="material-icons up">keyboard_arrow_up</i>
-            <div class="row2">
-                <i class="material-icons ">keyboard_arrow_left</i>
-                <i class="material-icons ">keyboard_arrow_right</i>
-            </div>
-            <i class="material-icons down">keyboard_arrow_down</i>
-        </div>
-        <div class="dialogContainer bigger">
-            <p class="dialogText">
-                Use the arrow keys to navigate  {{data}} <img class="img" src="../../assets/mariopause.png" /> through the <b class="red">MAZE</b> and collect all the <img class="img" src="https://vignette2.wikia.nocookie.net/mario/images/a/a6/Super_Mushroom_Artwork_-_Super_Mario_3D_World.png/revision/latest?cb=20131217032455"
-                /> with <b class="red"> MINIMUM</b> number of steps
-            </p>
-        </div>
+<div md-dialog *ngIf="!data.gameOver; else gameOverTemp" class="dialogContainer full">
+    <div md-dialog-title>
+        <h1>Welcome to Mario Maze</h1>
     </div>
-    <div class="row">
+    <div md-dialog-content>
         <div class="dialogContainer">
-            <i class="material-icons up veryBig">system_update</i>
+
+            <div class="row">
+                <i class="material-icons up">keyboard_arrow_up</i>
+                <div class="row2">
+                    <i class="material-icons ">keyboard_arrow_left</i>
+                    <i class="material-icons ">keyboard_arrow_right</i>
+                </div>
+                <i class="material-icons down">keyboard_arrow_down</i>
+            </div>
+            <div class="dialogContainer bigger">
+                <p class="dialogText">
+                    Use the arrow keys to navigate <img class="img" src="../../assets/mariopause.png" /> through the <b class="red">MAZE</b>                    and collect all the <img class="img" src="https://vignette2.wikia.nocookie.net/mario/images/a/a6/Super_Mushroom_Artwork_-_Super_Mario_3D_World.png/revision/latest?cb=20131217032455"
+                    /> with <b class="red"> MINIMUM</b> number of steps
+                </p>
+            </div>
         </div>
-        <div class="dialogContainer bigger">
-            <p class="dialogText">
-                If you are using a mobile you can either swipe to move or use the keys at the bottom <i class="material-icons up">keyboard_arrow_left</i> <i class="material-icons up">keyboard_arrow_up</i> <i class="material-icons up">keyboard_arrow_down</i>                <i class="material-icons up">keyboard_arrow_right</i>
-            </p>
+        <div class="row">
+            <div class="dialogContainer">
+                <i class="material-icons up veryBig">system_update</i>
+            </div>
+            <div class="dialogContainer bigger">
+                <p class="dialogText">
+                    If you are using a mobile you can either swipe to move or use the keys at the bottom <i class="material-icons up">keyboard_arrow_left</i>                    <i class="material-icons up">keyboard_arrow_up</i> <i class="material-icons up">keyboard_arrow_down</i>
+                    <i class="material-icons up">keyboard_arrow_right</i>
+                </p>
+            </div>
         </div>
     </div>
-
-   <div md-dialog-actions> <a (click)="dialogRef.close()" md-raised-button> <i class="material-icons close">close</i> </a></div>
+    <div md-dialog-actions> <a (click)="dialogRef.close()" md-raised-button> <i class="material-icons close">close</i> </a></div>
 </div>
 
-<ng-template #gameOverTemp><div class="dialogContainer full">
-    <h1>Welcome to Mario Maze{{!gameOver}}</h1>
-    <div class="row">
-        <div class="dialogContainer">
-            <i class="material-icons up">keyboard_arrow_up</i>
-            <div class="row2">
-                <i class="material-icons ">keyboard_arrow_left</i>
-                <i class="material-icons ">keyboard_arrow_right</i>
+<ng-template #gameOverTemp>
+    <div class="dialogContainer full">
+        <h1>Game Over!</h1>
+        <div class="row">
+            <div class="dialogContainer bigger">
+                <p class="dialogText">
+                    You finished the game in {{data.moves}} moves.
+                </p>
             </div>
-            <i class="material-icons down">keyboard_arrow_down</i>
         </div>
-        <div class="dialogContainer bigger">
-            <p class="dialogText">
-                Use the arrow keys to navigate <img class="img" src="../../assets/mariopause.png" /> through the <b class="red">MAZE</b> and collect all the <img class="img" src="https://vignette2.wikia.nocookie.net/mario/images/a/a6/Super_Mushroom_Artwork_-_Super_Mario_3D_World.png/revision/latest?cb=20131217032455"
-                /> with <b class="red"> MINIMUM</b> number of steps
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="dialogContainer">
-            <i class="material-icons up veryBig">system_update</i>
-        </div>
-        <div class="dialogContainer bigger">
-            <p class="dialogText">
-                If you are using a mobile you can either swipe to move or use the keys at the bottom <i class="material-icons up">keyboard_arrow_left</i> <i class="material-icons up">keyboard_arrow_up</i> <i class="material-icons up">keyboard_arrow_down</i>                <i class="material-icons up">keyboard_arrow_right</i>
-            </p>
-        </div>
-    </div>
 
-    <a (click)="playAgain()" md-raised-button> Play Again </a>
-</div>
+        <a (click)="playAgain()" md-raised-button> Play Again </a>
+    </div>
 </ng-template>
