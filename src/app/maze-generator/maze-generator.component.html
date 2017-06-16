@@ -4,7 +4,7 @@
         <div><i class="material-icons toolbarText">face</i><span class="toolbarText">collectables:</span> <span class="red">{{this.staticCollectables - this.startPosition.collectables}}</span><span> / {{this.staticCollectables}} </span></div>
              <a md-mini-fab (click)="toggleNightMode()" md-raised-button> <i class="material-icons ">lightbulb_outline</i></a>
 
-        <a (click)="openDialog()" md-raised-button> <i class="material-icons ">lightbulb_outline</i> solve</a>
+        <a md-mini-fab (click)="openDialog()" md-raised-button> <i class="material-icons ">check_circle</i></a>
     </md-toolbar>
     <md-grid-list [ngClass]="{'dayBackground':!isNightMode}" #grid cols="{{columns}}" rowHeight="fit">
 
