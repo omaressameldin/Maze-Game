@@ -1,28 +1,28 @@
-# Maze
+# README #
+### Project Info ###
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
+* Mario Maze
+* 1.0
 
-## Development server
+### Description ###
+* A Mario Maze Game with Angular 4
+### Demo ###
+* [Link](Mario-maze.herokuapp.com)
+### How do I get set up? ###
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* pull repo (git init, git remote add origin [url], git pull origin master)
+* run npm install
+* run ng serve
 
-## Code scaffolding
+### Contribution guidelines ###
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+* Do not push directly on Master
+* create feature branch (git checkout -b [branch_name]
+* Writing a meaningful commit message would go a long way
+* when done working create a pull request and assign a reviewer" 
+* when review is complete: create a pull request with master branch and merge your work
 
-## Build
+### Who do I talk to? ###
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Aley Eladawy
+* Omar Essam
