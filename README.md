@@ -7,7 +7,7 @@
 ### Description ###
 * A Mario Maze Game with Angular 4
 ### Demo ###
-* [Link](Mario-maze.herokuapp.com){:target="_blank"}
+* <a href="Mario-maze.herokuapp.com" target="_blank">link</a>
 ### How do I get set up? ###
 
 * pull repo (git init, git remote add origin [url], git pull origin master)
