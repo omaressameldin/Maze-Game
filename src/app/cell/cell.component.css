@@ -55,19 +55,19 @@
 }
 
 .rightBorderHit::before{
-    border-right: 12px ridge red;
+    border-right: 6px ridge red;
 }
 
 .leftBorderHit::after{
-    border-left: 12px ridge red;
+    border-left: 6px ridge red;
 }
 
 .bottomBorderHit::after{
-    border-bottom: 12px ridge red;
+    border-bottom: 6px ridge red;
 }
 
 .topBorderHit::before{
-    border-top: 12px ridge red;
+    border-top: 6px ridge red;
 }
 @keyframes draw {
     from {
