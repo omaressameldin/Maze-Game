@@ -21,7 +21,7 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
     CellComponent,
     AvatarControllerComponent,
     HammerSwipesDirective,
-    DialogContentComponent
+    DialogContentComponent,
   ],
   entryComponents: [DialogContentComponent],
   imports: [

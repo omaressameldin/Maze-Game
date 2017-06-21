@@ -31,23 +31,39 @@ import { Cell } from "../classes/cell/cell"
       state('walking', style({}),
       ),
       transition('* => walking', [
-        animate("0.5s linear", keyframes([
-          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.3 }),
-          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.6 }),
-          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.8 }),
+        animate("0.8s linear", keyframes([
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.1 }),
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.2 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.3 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.4 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.5 }),
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.6 }),
+
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.7 }),
+          style({ backgroundImage: 'url(assets/mariopause.png)', offset: 0.8 }),
+
+          style({ backgroundImage: 'url(assets/mariowalk.png)', offset: 0.9 }),
+
 
         ]))
       ]),
-      
-      state('jumping', style({backgroundImage: 'url(assets/mariojump2.png)'}),
+
+      state('jumpingUp', style({ backgroundImage: 'url(assets/mariojump2.png)' }),
       ),
-      transition('* => jumping', [
+      transition('* => jumpingUp', [
         animate("0.01s")
       ]),
-       state('nowhere', style({backgroundImage: 'url(assets/mariopause.png)'}),
+      state('jumpingDown', style({ backgroundImage: 'url(assets/mariojump1.png)' }),
       ),
-      transition('* =>nowhere',animate(1))
-          ]),
+      transition('* => jumpingDown', [
+        animate("0.01s")
+      ]),
+      state('nowhere', style({ backgroundImage: 'url(assets/mariopause.png)' }),
+      ),
+      transition('* =>nowhere', animate(1))
+    ]),
     trigger('shakeyshakey', [
       state('SHAKEYSIDES', style({ height: '*' })),
       transition('* => SHAKEYSIDES', [style({ height: '*' }),
@@ -99,9 +115,16 @@ import { Cell } from "../classes/cell/cell"
 export class AvatarComponent implements OnInit {
   size: { width: string, height: string };
   part: any;
+  // @Output()  cellBorderHit = new EventEmitter<Array<[number, number, Cell]>>();
   @Input() map: Array<Array<[Cell, boolean, number]>>;
   @Input() gridLocation: { top: number, left: number };
   @Input() startPosition: { x: number, y: number, collectables: number };
+  @Input() movesSoFar: { moves: number };
+
+  // @Output('nightUpdate') nightModeUpdate:EventEmitter<boolean> =  new EventEmitter<boolean>();
+  @Output('collectedUpdate') collectedUpate: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  // @Input() isNightMode: boolean;
   currentPosition: { x: number, y: number };
   currentIsStart: boolean;
   isShakey: String;
@@ -109,7 +132,7 @@ export class AvatarComponent implements OnInit {
   shakeCounter = 0;
   imgSource: String;
   whereTo: String;
-  lookingLeft:boolean;
+  lookingLeft: boolean;
   constructor(private el: ElementRef,
     private renderer: Renderer2) {
   }
@@ -141,6 +164,11 @@ export class AvatarComponent implements OnInit {
   onDone($event: any) {
     this.isShakey = "nahh";
     this.imgSource = "https://s3.amazonaws.com/frt-prod/cms/files/files/000/000/069/original/Mario_Pixeles.png";
+    this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = false;
+    this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = false;
+
 
   }
 
@@ -151,8 +179,6 @@ export class AvatarComponent implements OnInit {
   }
 
   swyped(event: any) {
-    console.log(event)
-    console.log("ANA FE AVATAR YAMMA")
     this.move(event)
   }
   move = (event) => {
@@ -166,10 +192,13 @@ export class AvatarComponent implements OnInit {
     let width = +this.size.width.split('px')[0] + 1;
     let height = +this.size.height.split('px')[0] + 1;
     if (keyCode == 37 || event == 'swipeleft') {
+      // this.isNightMode = !this.isNightMode;
       this.lookingLeft = true;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].left)) {
+        this.map[this.currentPosition.y][this.currentPosition.x][0].leftHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+          // this.nightModeUpdate.emit(true)
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -185,12 +214,19 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x--;
         this.moving = true;
+        this.movesSoFar.moves++;
+        console.log("WALAHY HEYA EL MOVES FE AVATAR: ", this.movesSoFar);
       }
     }
     else if (keyCode == 38 || event == 'swipeup') {
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].up)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].topHit = true;
+
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+          // this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -203,16 +239,23 @@ export class AvatarComponent implements OnInit {
         var newY = +origX[5] - height;
         var oldX = +origX[4];
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
-        this.whereTo = "jumping";
+        this.whereTo = "jumpingUp";
         this.currentPosition.y--;
         this.moving = true;
+        this.movesSoFar.moves++;
+
       }
     }
     else if (keyCode == '39' || event == 'swiperight') {
+
       this.lookingLeft = false;
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].right)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].rightHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+          // this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -228,12 +271,19 @@ export class AvatarComponent implements OnInit {
         this.whereTo = "walking";
         this.currentPosition.x++;
         this.moving = true
+        this.movesSoFar.moves++;
+
       }
     }
     else if (keyCode == 40 || event == 'swipedown') {
+
       if (!(this.map[this.currentPosition.y][this.currentPosition.x][0].down)) {
+
+        this.map[this.currentPosition.y][this.currentPosition.x][0].bottomHit = true;
         if (this.shakeCounter == 5) {
           this.isShakey = "SERIOUSLYSHAKEY";
+          // this.nightModeUpdate.emit(true)
+
           this.shakeCounter = 0;
           this.imgSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIsh0BcvVCIFndpUlILEEFA5BU7juhHjWH6VBg1QUGsBnARYD";
         }
@@ -245,16 +295,23 @@ export class AvatarComponent implements OnInit {
       else {
         newY = +origX[5] + height;
         oldX = +origX[4];
+        this.whereTo = "jumpingDown";
+
         this.renderer.setStyle(this.part, 'transform', 'translate(' + oldX + 'px,' + newY + 'px)');
         this.currentPosition.y++;
         this.moving = true
+        this.movesSoFar.moves++;
+
       }
     }
     this.renderer.listen(this.part, 'transitionend', (event) => {
       if (this.moving && this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable) {
         this.map[this.currentPosition.y][this.currentPosition.x][0].hasCollectable = false;
         this.startPosition.collectables--;
+        if (this.startPosition.collectables == 0)
+          this.collectedUpate.emit(true)
       }
+
       this.moving = false;
       this.whereTo = "nowhere";
     })

@@ -18,7 +18,8 @@
     height: 0px;
     margin: 0;
     padding: 0;
-    animation: draw 1.2s 1s forwards
+    animation: draw 1.2s 1s forwards;
+    transition: border-color 0.82s, border-style 0.82s, border-width 0.82s;
 }
 
 .cell::after {
@@ -26,25 +27,48 @@
 }
 
 .rightBorder::before {
-    border-right: 3px solid #4267B2;
+    /*border-right: 3px solid #4267B2;*/
+    border-right: 3px solid yellow;
+    z-index: 300;
     right: 0;
 }
-
 .leftBorder::after {
-    border-left: 3px solid #4267B2;
+    /*border-left: 3px solid #4267B2;*/
+    border-left: 3px solid yellow;
+    z-index: 300;
+
     left: 0;
 }
-
 .bottomBorder::after {
-    border-bottom: 3px solid #4267B2;
+    /*border-bottom: 3px solid #4267B2;*/
+    border-bottom: 3px solid yellow;
+    z-index: 300;
+
     bottom: 0;
 }
-
 .topBorder::before {
-    border-top: 3px solid #4267B2;
+    /*border-top: 3px solid #4267B2;*/
+    border-top: 3px solid yellow;
+    z-index: 300;
+
     top: 0;
 }
 
+.rightBorderHit::before{
+    border-right: 6px ridge red;
+}
+
+.leftBorderHit::after{
+    border-left: 6px ridge red;
+}
+
+.bottomBorderHit::after{
+    border-bottom: 6px ridge red;
+}
+
+.topBorderHit::before{
+    border-top: 6px ridge red;
+}
 @keyframes draw {
     from {
         width: 0%;
@@ -65,4 +89,3 @@
     padding: 50% 0;
     display: inline-block;
 }
-

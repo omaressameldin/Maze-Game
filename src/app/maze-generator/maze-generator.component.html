@@ -2,13 +2,15 @@
     <md-toolbar>
         <div><i class="material-icons toolbarTitleIcon">view_quilt</i><span class="toolbarTitle">Mario Maze</span></div>
         <div><i class="material-icons toolbarText">face</i><span class="toolbarText">collectables:</span> <span class="red">{{this.staticCollectables - this.startPosition.collectables}}</span><span> / {{this.staticCollectables}} </span></div>
-        <a (click)="openDialog()" md-raised-button> <i class="material-icons ">lightbulb_outline</i> solve</a>
+             <a md-mini-fab (click)="toggleNightMode()" md-raised-button> <i class="material-icons ">lightbulb_outline</i></a>
+
+        <!--<a md-mini-fab (click)="openDialog()" md-raised-button> <i class="material-icons ">check_circle</i></a>-->
     </md-toolbar>
-    <md-grid-list #grid cols="{{columns}}" rowHeight="fit">
+    <md-grid-list [ngClass]="{'dayBackground':!isNightMode}" #grid cols="{{columns}}" rowHeight="fit">
 
         <div *ngFor="let row of map; let i = index">
-            <md-grid-tile #gridItem *ngFor="let cell of row; let j = index" [colspan]="1" [rowspan]="1">
-                <app-cell [cell]="cell[0]" [indexX]="i" [indexY]="j"></app-cell>
+            <md-grid-tile #gridItem *ngFor="let cell of row">
+                <app-cell [cell]="cell[0]"></app-cell>
             </md-grid-tile>
 
         </div>
@@ -17,6 +19,9 @@
         <div id='stars3'></div>
     </md-grid-list>
 
-    <app-avatar [map]="map" [gridLocation]="gridLocation" [startPosition]="startPosition" [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>
+    <!--<app-avatar [map]="map" (nightUpdate)="updateNightMode($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
+        [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>-->
+            <app-avatar [movesSoFar]="movesSoFar" [map]="map" (collectedUpdate)="gameOver($event)" [gridLocation]="gridLocation" [startPosition]="startPosition"
+        [style.width.px]="dimensions*1.5" [style.height.px]="dimensions*1.5" #avatar></app-avatar>
     <app-avatar-controller [move]="avatar.move"></app-avatar-controller>
 </div>

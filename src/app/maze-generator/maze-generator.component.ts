@@ -5,6 +5,8 @@ import {
 import { Cell } from "../classes/cell/cell"
 import {MdDialog} from '@angular/material';
 import {DialogContentComponent} from "../dialog-content/dialog-content.component"
+
+
 @Component({
   selector: 'app-maze-generator',
   templateUrl: './maze-generator.component.html',
@@ -23,14 +25,19 @@ export class MazeGeneratorComponent implements OnInit {
   dimensions: number;
   startPosition: { x: number, y: number, collectables: number };
   moveFunction: any;
+  isNightMode: boolean;
   staticCollectables: number;
   map: Array<Array<[Cell, boolean]>>;
+  movesSoFar :{moves:number};
   ngOnInit() {
-    this.rows = Math.floor(Math.random() * 11) + 5;
-    this.columns = Math.floor(Math.random() * 11) + 5;
+    this.rows = Math.floor(Math.random() * 7) + 3;
+    this.columns = Math.floor(Math.random() * 7) + 3;
+    this.movesSoFar = {moves:0};
+    // this.rows = 3;
 
+    // this.columns = 3;
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
-    this.avatar
+    this.isNightMode = false;
     this.map = [];
     for (let i = 0; i < this.rows; i++) {
       this.map[i] = [];
@@ -57,17 +64,38 @@ export class MazeGeneratorComponent implements OnInit {
     let dim = Math.min(Number(compuStyle.width.match(/\d+/g)[0]), Number(compuStyle.height.match(/\d+/g)[0])) / 2;
     this.dimensions = dim;
     this.moveFunction = this.avatar.move;
+    this.avatar.movesSoFar = this.movesSoFar;
     setTimeout(()=>{
       this.openDialog()
     },2400 )
       
     this.cdr.detectChanges();
+
   }
 
   openDialog(){
-    this.dialog.open(DialogContentComponent);
+    console.log("HAAA")
+    // this.dialog.open(DialogContentComponent, {data: 'ehhhfalse'});
+    let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:false}, disableClose:true});
+    // let dialogRef = dialog.open(YourDialog, { data: 'your data',});
   }
 
+
+  gameOver(event){
+    // let config:MdDialogConfig={
+    //   disableClose:true,
+    //   data:true
+    // };
+    // let dialogRef = this.dialog.open(DialogContentComponent, {data:true});
+        let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:true, moves:this.movesSoFar.moves}, disableClose:true});
+
+  }
+  
+  toggleNightMode(){
+    this.isNightMode = !this.isNightMode;
+            console.log("WALAHY HEYA EL MOVES FE MAZE: ", this.movesSoFar);
+
+  }
 
   generateMaze() {
     let unvisitedCells = this.rows * this.columns - 1;
@@ -107,6 +135,12 @@ export class MazeGeneratorComponent implements OnInit {
     console.log("AYWA BA2A WE YALLA BA2A")
     this.avatar.swyped(event);
   }
+
+  // updateNightMode(event){
+  //   console.log("Avatar Night: "+event);
+  //   console.log("Maze Night: "+this.isNightMode);
+  //   this.isNightMode = !this.isNightMode;
+  // }
 
 
   getUnvisitedNeighbors(currentCell: Array<number>): Array<number> {
