@@ -24,7 +24,7 @@
                 <p class="dialogText">
                     Use the arrow keys to navigate <img class="img" src="../../assets/mariopause.png" /> through the
                     <b class="red">MAZE</b> and collect all the <img class="img" src="../../assets/mario-bros-mushroom-vector.png"
-                    /> with <b class="red"> MINIMUM</b> number of steps
+                    /> with the<b class="red"> MINIMUM</b> number of steps
                 </p>
             </div>
         </div>
@@ -44,16 +44,34 @@
 </div>
 
 <ng-template #gameOverTemp>
-    <div class="dialogContainer full">
-        <h1>Game Over!</h1>
-        <div class="row">
-            <div class="dialogContainer bigger">
-                <p class="dialogText">
-                    You finished the game in {{data.moves}} moves.
-                </p>
+    <div md-dialog class="dialogContainer full">
+        <div md-dialog-title>
+
+            <h1 *ngIf="data.moves <= failFactor">Well done!</h1>
+            <div class="marquee" *ngIf="data.moves > failFactor">
+                <h1>YOU SUCK!</h1>
+            </div>
+        </div>
+        <div md-dialog-content>
+            <div class="row">
+
+                <div class="dialogContainer">
+                    <img class="imgLg" src="../../assets/angry_mario.png" />
+                </div>
+                <div class="dialogContainer bigger">
+                    <p class="dialogText">
+                        You finished the game in {{data.moves}} moves.
+                    </p>
+                    <div *ngIf="data.moves> failFactor">
+                        <p>Did we mention that you suck? Like .. can't even put it into words. <br><br>Hope our marquee helps
+                            you understand the severity of the situation.<br><br>No really, you're a lost cause. *sigh*
+                        </p>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <a (click)="playAgain()" md-raised-button> Play Again </a>
+        <div md-dialog-actions> <a (click)="playAgain()" md-raised-button> Play Again </a></div>
     </div>
 </ng-template>

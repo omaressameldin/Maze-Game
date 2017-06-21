@@ -30,12 +30,12 @@ export class MazeGeneratorComponent implements OnInit {
   map: Array<Array<[Cell, boolean]>>;
   movesSoFar :{moves:number};
   ngOnInit() {
-    this.rows = Math.floor(Math.random() * 7) + 3;
-    this.columns = Math.floor(Math.random() * 7) + 3;
+    // this.rows = Math.floor(Math.random() * 7) + 3;
+    // this.columns = Math.floor(Math.random() * 7) + 3;
     this.movesSoFar = {moves:0};
-    // this.rows = 3;
+    this.rows = 3;
 
-    // this.columns = 3;
+    this.columns = 3;
     this.startPosition = { y: Math.floor(Math.random() * this.rows), x: Math.floor(Math.random() * this.columns), collectables: 0 };
     this.isNightMode = false;
     this.map = [];
@@ -74,7 +74,6 @@ export class MazeGeneratorComponent implements OnInit {
   }
 
   openDialog(){
-    console.log("HAAA")
     // this.dialog.open(DialogContentComponent, {data: 'ehhhfalse'});
     let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:false}, disableClose:true});
     // let dialogRef = dialog.open(YourDialog, { data: 'your data',});
@@ -82,13 +81,7 @@ export class MazeGeneratorComponent implements OnInit {
 
 
   gameOver(event){
-    // let config:MdDialogConfig={
-    //   disableClose:true,
-    //   data:true
-    // };
-    // let dialogRef = this.dialog.open(DialogContentComponent, {data:true});
-        let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:true, moves:this.movesSoFar.moves}, disableClose:true});
-
+        let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:true, moves:this.movesSoFar.moves,size:this.rows,collectibles:this.staticCollectables}, disableClose:true});
   }
   
   toggleNightMode(){

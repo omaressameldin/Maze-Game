@@ -41,9 +41,31 @@
     justify-content: space-around;
 }
 
+.marquee{
+    width: 450px;
+	line-height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.marquee h1 {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 3s linear infinite;
+}
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+
+}
+
 .img {
     width: 40px;
     height: 40px;
+}
+.imgLg{
+    width: 100px;
+    height: 100px;
 }
 
 .full {
@@ -54,6 +76,7 @@
 .veryBig {
     font-size: 150px;
 }
+
 
 @media only screen and (max-width:1000px) {
     .row {
