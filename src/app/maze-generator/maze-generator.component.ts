@@ -74,7 +74,6 @@ export class MazeGeneratorComponent implements OnInit {
   }
 
   openDialog(){
-    console.log("HAAA")
     // this.dialog.open(DialogContentComponent, {data: 'ehhhfalse'});
     let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:false}, disableClose:true});
     // let dialogRef = dialog.open(YourDialog, { data: 'your data',});
@@ -82,13 +81,7 @@ export class MazeGeneratorComponent implements OnInit {
 
 
   gameOver(event){
-    // let config:MdDialogConfig={
-    //   disableClose:true,
-    //   data:true
-    // };
-    // let dialogRef = this.dialog.open(DialogContentComponent, {data:true});
-        let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:true, moves:this.movesSoFar.moves}, disableClose:true});
-
+        let dialogRef = this.dialog.open(DialogContentComponent, {data:{gameOver:true, moves:this.movesSoFar.moves,size:this.rows,collectibles:this.staticCollectables}, disableClose:true});
   }
   
   toggleNightMode(){

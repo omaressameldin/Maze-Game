@@ -47,8 +47,8 @@
     <div md-dialog class="dialogContainer full">
         <div md-dialog-title>
 
-            <h1 *ngIf="data.moves > 11">Well done!</h1>
-            <div class="marquee" *ngIf="data.moves < 10">
+            <h1 *ngIf="data.moves <= failFactor">Well done!</h1>
+            <div class="marquee" *ngIf="data.moves > failFactor">
                 <h1>YOU SUCK!</h1>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     <p class="dialogText">
                         You finished the game in {{data.moves}} moves.
                     </p>
-                    <div *ngIf="data.moves<10">
+                    <div *ngIf="data.moves> failFactor">
                         <p>Did we mention that you suck? Like .. can't even put it into words. <br><br>Hope our marquee helps
                             you understand the severity of the situation.<br><br>No really, you're a lost cause. *sigh*
                         </p>
@@ -72,6 +72,6 @@
             </div>
         </div>
 
-    <div md-dialog-actions> <a (click)="playAgain()" md-raised-button> Play Again </a></div>
+        <div md-dialog-actions> <a (click)="playAgain()" md-raised-button> Play Again </a></div>
     </div>
 </ng-template>
